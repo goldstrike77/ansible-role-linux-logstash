@@ -54,7 +54,7 @@ dependencies:
     vars:
       kibana_ngx_dept: true
       kibana_elastic_dept: true
-      kibana_servers: '{{ logstash_server }}'
+      kibana_servers: '{{ logstash_servers }}'
       kibana_auth: '{{ logstash_elastic_stack_auth | bool | to_json }}'
       kibana_user: '{{ logstash_elastic_stack_user | default("elastic") }}'
       kibana_pass: '{{ logstash_elastic_stack_pass | default("changeme") }}'

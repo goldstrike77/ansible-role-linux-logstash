@@ -3,6 +3,7 @@
 logstash_is_install: false # A boolean value, whether install the Logstash.
 logstash_version: '6.8.5' # Specify the Logstash version.
 logstash_cluster: 'syslog' # Specifies the name of the cluster.
+logstash_path: '/data' # This directory is used to store server state.
 logstash_rotate_day: '180' # Specify the logs retention days.
 
 # Role dependencies #
@@ -16,7 +17,7 @@ logstash_elastic_stack_version: '{{ logstash_version }}' # Specify the Elastic S
 logstash_elastic_hosts: 'localhost' # List of Elasticsearch hosts Logstash should connect to.
 logstash_elastic_port: '9200' # Elasticsearch REST port.
 logstash_elastic_heap_size: '1g' # Specify the maximum memory allocation pool for a Java virtual machine.
-logstash_elastic_path: '/data' # Specify the ElasticSearch data directory.
+logstash_elastic_path: '{{ logstash_path }}' # Specify the ElasticSearch data directory.
 logstash_elastic_node_type: 'default' # Type of nodes: default, master, data, ingest and coordinat.
 logstash_kibana_port: '5601' # Kibana server port.
 logstash_kibana_ngx_domain: 'syslog.example.com' # Defines domain name.
