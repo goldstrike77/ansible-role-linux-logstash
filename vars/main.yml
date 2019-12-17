@@ -1,1 +1,12 @@
 ---
+logstash_servers: "\
+  {% set _logstash_servers = [] %}\
+  {% for host in groups[group_names[-1]] %}\
+    {% if logstash_cluster is defined %}\
+      {% set _logstash_cluster = logstash_cluster | default('') %}\
+      {% if ( _logstash_cluster == logstash_cluster ) %}\
+        {% if _logstash_servers.append(hostvars[host]['ansible_host']) %}{% endif %}\
+      {% endif %}\
+    {% endif %}\
+  {% endfor %}\
+  {{ _logstash_servers }}"

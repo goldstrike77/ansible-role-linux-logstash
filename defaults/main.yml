@@ -1,1 +1,37 @@
 ---
+# General parameters #
+logstash_is_install: false # A boolean value, whether install the Logstash.
+logstash_version: '6.8.5' # Specify the Logstash version.
+logstash_cluster: 'syslog' # Specifies the name of the cluster.
+logstash_rotate_day: '180' # Specify the logs retention days.
+
+# Role dependencies #
+logstash_elastic_stack_dept: false # A boolean value, whether Elastic Stack components use the same environment.
+
+# Elastic Stack parameters #
+logstash_elastic_stack_auth: false # A boolean value, Enable or Disable authentication.
+logstash_elastic_stack_user: 'elastic' # Authorization user name, do not modify it.
+logstash_elastic_stack_pass: 'changeme' # Authorization user password.
+logstash_elastic_stack_version: '{{ logstash_version }}' # Specify the Elastic Stack version.
+logstash_elastic_hosts: 'localhost' # List of Elasticsearch hosts Logstash should connect to.
+logstash_elastic_port: '9200' # Elasticsearch REST port.
+logstash_elastic_heap_size: '1g' # Specify the maximum memory allocation pool for a Java virtual machine.
+logstash_elastic_path: '/data' # Specify the ElasticSearch data directory.
+logstash_elastic_node_type: 'default' # Type of nodes: default, master, data, ingest and coordinat.
+logstash_kibana_port: '5601' # Kibana server port.
+logstash_kibana_ngx_domain: 'syslog.example.com' # Defines domain name.
+logstash_kibana_ngx_port_http: '80' # NGinx HTTP listen port.
+logstash_kibana_ngx_port_https: '443' # NGinx HTTPs listen port.
+logstash_kibana_ngx_site_path: '{{ logstash_path }}/nginx/site' # Specify the NGinx site directory.
+logstash_kibana_ngx_logs_path: '{{ logstash_path }}/nginx/logs' # Specify the NGinx logs directory.
+
+# Inputs Variables #
+logstash_network_inputs_arg: # Define the global common inputs parameters.
+  - name: 'cisco-asa'
+    protocol: 'udp'
+    port: '10514'
+logstash_blob_inputs_arg: # Define the global common inputs parameters.
+  - name: 'azure-nsg'
+    sa_name: 'xxxxx'
+    sa_access_key: 'xxxxx'
+    sa_container: 'xxxxx'

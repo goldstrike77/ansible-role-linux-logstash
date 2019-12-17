@@ -1,0 +1,217 @@
+{
+  "order": 0,
+  "template": "cisco-asa*",
+  "settings": {
+    "index": {
+      "refresh_interval": "30s",
+      "number_of_shards": "1",
+      "number_of_replicas": "0"
+    }
+  },
+  "mappings": {
+    "cisco-asa": {
+      "dynamic_templates": [{
+          "notanalyzed": {
+            "match": "*",
+            "match_mapping_type": "string",
+            "mapping": {
+              "type": "keyword",
+              "doc_values": "true"
+            }
+          }
+        }
+      ],
+      "properties": {
+        "@timestamp": {
+          "type": "date",
+          "format": "dateOptionalTime"
+        },
+        "@version": {
+          "type": "text"
+        },
+        "action": {
+          "type": "keyword"
+        },
+        "assigned_ip": {
+          "type": "keyword"
+        },
+        "assigned_ipv6": {
+          "type": "keyword"
+        },
+        "bytes": {
+          "type": "integer"
+        },
+        "cisco-type": {
+          "type": "keyword"
+        },
+        "direction": {
+          "type": "keyword"
+        },
+        "dst_interface": {
+          "type": "keyword"
+        },
+        "dst_ip": {
+          "type": "keyword"
+        },
+        "dst_port": {
+          "type": "keyword"
+        },
+        "err_dst_interface": {
+          "type": "keyword"
+        },
+        "err_dst_ip": {
+          "type": "keyword"
+        },
+        "err_icmp_code": {
+          "type": "keyword"
+        },
+        "err_icmp_type": {
+          "type": "keyword"
+        },
+        "err_protocol": {
+          "type": "keyword"
+        },
+        "err_src_fwuser": {
+          "type": "keyword"
+        },
+        "err_src_interface": {
+          "type": "keyword"
+        },
+        "err_src_ip": {
+          "type": "keyword"
+        },
+        "event-code": {
+          "type": "keyword"
+        },
+        "group": {
+          "type": "keyword"
+        },
+        "hashcode1": {
+          "type": "keyword"
+        },
+        "hashcode2": {
+          "type": "keyword"
+        },
+        "host": {
+          "type": "keyword"
+        },
+        "icmp_code": {
+          "type": "keyword"
+        },
+        "icmp_type": {
+          "type": "keyword"
+        },
+        "interface": {
+          "type": "keyword"
+        },
+        "log_msg": {
+          "type": "keyword"
+        },
+        "orig_dst_ip": {
+          "type": "keyword"
+        },
+        "orig_dst_port ": {
+          "type": "keyword"
+        },
+        "orig_src_ip": {
+          "type": "keyword"
+        },
+        "orig_src_port": {
+          "type": "keyword"
+        },
+        "policy_id": {
+          "type": "keyword"
+        },
+        "protocol": {
+          "type": "keyword"
+        },
+        "reason": {
+          "type": "keyword"
+        },
+        "src_interface": {
+          "type": "keyword"
+        },
+        "src_ip": {
+          "type": "keyword"
+        },
+        "src_port": {
+          "type": "keyword"
+        },
+        "syslog_facility": {
+          "type": "keyword"
+        },
+        "syslog_facility_code": {
+          "type": "keyword"
+        },
+        "syslog_severity": {
+          "type": "keyword"
+        },
+        "syslog_severity_code": {
+          "type": "keyword"
+        },
+        "tags": {
+          "type": "text"
+        },
+        "tcp_flags": {
+          "type": "keyword"
+        },
+        "geoip": {
+          "type": "object",
+          "properties": {
+            "area_code": {
+              "type": "long"
+            },
+            "city_name": {
+              "type": "keyword",
+              "doc_values": "true"
+            },
+            "continent_code": {
+              "type": "text"
+            },
+            "country_code2": {
+              "type": "text"
+            },
+            "country_code3": {
+              "type": "text"
+            },
+            "country_name": {
+              "type": "keyword",
+              "doc_values": "true"
+            },
+            "dma_code": {
+              "type": "long"
+            },
+            "ip": {
+              "type": "keyword",
+              "doc_values": "true"
+            },
+            "latitude": {
+              "type": "double"
+            },
+            "longitude": {
+              "type": "double"
+            },
+            "location": {
+              "type": "geo_point",
+              "ignore_malformed": "true"
+            },
+            "postal_code": {
+              "type": "text"
+            },
+            "real_region_name": {
+              "type": "keyword",
+              "doc_values": "true"
+            },
+            "region_name": {
+              "type": "keyword",
+              "doc_values": "true"
+            },
+            "timezone": {
+              "type": "text"
+            }
+          }
+        }
+      }
+    }
+  }
+}

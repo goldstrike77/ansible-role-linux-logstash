@@ -1,0 +1,21 @@
+---
+- name: Geolocation database download
+  unarchive:
+    src: 'http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz'
+    dest: '/etc/logstash'
+    owner: 'logstash'
+    group: 'logstash'
+    mode: '0755'
+    extra_opts: [--strip-components=1]
+    exclude:
+      - 'COPYRIGHT.txt'
+      - 'LICENSE.txt'
+      - 'README.txt'
+    remote_src: 'yes'
+    validate_certs: 'no'
+  register: logstash_geo_file_download
+  until: logstash_geo_file_download is succeeded
+  retries: 3
+  delay: 5
+  changed_when: false
+  failed_when: false

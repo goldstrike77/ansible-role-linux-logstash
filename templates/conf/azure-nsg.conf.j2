@@ -1,0 +1,94 @@
+input {
+  azureblob {
+    tags => ["azure-nsg"]
+    storage_account_name => "{{ item.sa_name }}"
+    storage_access_key => "{{ item.sa_access_key }}"
+    container => "{{ item.sa_container }}"
+    codec => "json"
+    file_head_bytes => 12
+    file_tail_bytes => 2
+  }
+}
+
+filter {
+  if "azure-nsg" in[tags]{
+    split {
+      field => "[records]"
+    }
+    split {
+      field => "[records][properties][flows]"
+    }
+    split {
+      field => "[records][properties][flows][flows]"
+    }
+    split {
+      field => "[records][properties][flows][flows][flowTuples]"
+    }
+
+    mutate {
+      split => {
+        "[records][resourceId]" => "/"
+      }
+      add_field => {
+        "Subscription" => "%{[records][resourceId][2]}"
+        "ResourceGroup" => "%{[records][resourceId][4]}"
+        "NetworkSecurityGroup" => "%{[records][resourceId][8]}"
+      }
+      convert => {
+        "Subscription" => "string"
+      }
+      convert => {
+        "ResourceGroup" => "string"
+      }
+      convert => {
+        "NetworkSecurityGroup" => "string"
+      }
+      split => {
+        "[records][properties][flows][flows][flowTuples]" => ","
+      }
+      add_field => {
+        "unixtimestamp" => "%{[records][properties][flows][flows][flowTuples][0]}"
+        "srcIp" => "%{[records][properties][flows][flows][flowTuples][1]}"
+        "destIp" => "%{[records][properties][flows][flows][flowTuples][2]}"
+        "srcPort" => "%{[records][properties][flows][flows][flowTuples][3]}"
+        "destPort" => "%{[records][properties][flows][flows][flowTuples][4]}"
+        "protocol" => "%{[records][properties][flows][flows][flowTuples][5]}"
+        "trafficflow" => "%{[records][properties][flows][flows][flowTuples][6]}"
+        "action" => "%{[records][properties][flows][flows][flowTuples][7]}"
+        "trafficstate" => "%{[records][properties][flows][flows][flowTuples][8]}"
+      }
+      convert => {
+        "unixtimestamp" => "integer"
+      }
+      convert => {
+        "srcPort" => "integer"
+      }
+      convert => {
+        "destPort" => "integer"
+      }
+      remove_field => ["[records][resourceId]", "[records][category]", "[records][operationName]", "[records][properties][flows][flows][flowTuples]"]
+    }
+
+    date {
+      match => ["unixtimestamp", "UNIX"]
+    }
+  }
+}
+
+output {
+  stdout {
+    codec => rubydebug
+  }
+  if "azure-nsg" in[tags]{
+    elasticsearch {
+      hosts => ['{{ logstash_elastic_hosts | list | join(":" + logstash_elastic_port + "', '") }}:{{ logstash_elastic_port }}']
+      user => "{{ logstash_elastic_stack_user }}"
+      password => "{{ logstash_elastic_stack_pass }}"
+      index => "azure-nsg-%{+YYYY.MM.dd}"
+      template => "/etc/logstash/elastic-azure-nsg-template.json"
+      template_name => "azure-nsg"
+      template_overwrite => true
+      document_type => "_doc"
+    }
+  }
+}

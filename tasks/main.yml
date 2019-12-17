@@ -1,1 +1,25 @@
 ---
+- name: Sets Logstash node variables for role dependencies.
+  set_fact:
+    logstash_elastic_hosts: '{{ logstash_servers }}'
+  when: logstash_elastic_stack_auth | bool
+
+- name: Include tasks for specific OS.
+  include: '{{ ansible_os_family }}.yml'
+
+- name: Include firewall tasks.
+  include: 'firewall.yml'
+
+- name: Include configuration tasks.
+  include: 'configureation.yml'
+
+- name: Include input tasks.
+  include: 'input.yml'
+
+- name: Reload the Logstash service
+  shell: echo ''
+  notify: 'Ensure logstash service is enabled'
+  when: logstash_update is changed or logstash_network_inputs_conf_update is changed or logstash_network_inputs_template_update is changed or logstash_network_inputs_pattern_update is changed or logstash_blob_inputs_conf_update is changed or logstash_blob_inputs_template_update is changed or logstash_blob_inputs_pattern_update is changed
+
+- name: Force the handler to run immediately
+  meta: flush_handlers

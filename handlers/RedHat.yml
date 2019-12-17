@@ -1,0 +1,8 @@
+---
+- name: Enable logstash service
+  systemd:
+    name: 'logstash.service'
+    enabled: 'yes'
+    state: 'restarted'
+    daemon_reload: 'yes'
+  listen: Ensure logstash service is enabled

@@ -1,0 +1,17 @@
+---
+- name: Gathering service facts.
+  service_facts:
+  register: services_state
+
+- name: Allow Logstash inputs port.
+  firewalld:
+    port: "{{ item.port }}/{{ item.protocol | lower }}"
+    zone: 'public'
+    permanent: 'true'
+    immediate: 'true'
+    state: 'enabled'
+  loop: '{{ logstash_network_inputs_arg }}'
+  when:
+    - logstash_network_inputs_arg is defined
+    - services_state.ansible_facts.services["firewalld.service"] is defined
+    - services_state.ansible_facts.services["firewalld.service"].state == 'running'

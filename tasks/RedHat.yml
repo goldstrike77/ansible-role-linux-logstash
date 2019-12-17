@@ -1,0 +1,36 @@
+---
+- name: Include OS-specific variables.
+  include_vars: '{{ ansible_os_family }}.yml'
+
+- name: 'Add Logstash {{ logstash_version.split(".")[0] }} YUM repositories.'
+  yum_repository:
+    name: '{{ logstash_repo_name }}'
+    description: '{{ logstash_repo_name }} YUM repository'
+    file: '{{ logstash_repo_name }}'
+    baseurl: '{{ logstash_artifacts_repo_url }}'
+    gpgcheck: 'no'
+    timeout: '60'
+
+- name: Install the Logstash dependents packages.
+  yum:
+    name: '{{ logstash_dependent_packages }}'
+    state: 'present'
+    validate_certs: 'no'
+    disable_gpg_check: 'yes'
+  register: yum_status
+  until: yum_status is succeeded
+  retries: 3
+  delay: 5
+
+- name: Install the Logstash packages.
+  yum:
+    name: '{{ logstash_packages }}'
+    state: 'present'
+    enablerepo: '{{ logstash_repo_name }}'
+    validate_certs: 'no'
+    update_cache: 'yes'
+    disable_gpg_check: 'yes'
+  register: logstash_update
+  until: logstash_update is succeeded
+  retries: 3
+  delay: 5
