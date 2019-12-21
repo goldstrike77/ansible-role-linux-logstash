@@ -1,0 +1,25 @@
+input {
+  {{ item.protocol }} {
+    port => {{ item.port }}
+    codec => "json"
+    type => "rsyslog"
+    tags => ["syslog-gelf"]
+  }
+}
+
+filter {}
+
+output {
+  if "syslog-gelf" in[tags]{
+    elasticsearch {
+      hosts => ['{{ logstash_elastic_hosts | list | join(":" + logstash_elastic_port + "', '") }}:{{ logstash_elastic_port }}']
+      user => "{{ logstash_elastic_stack_user }}"
+      password => "{{ logstash_elastic_stack_pass }}"
+      index => "syslog-gelf-%{+YYYY.MM.dd}"
+      template => "/etc/logstash/template/elastic-syslog-gelf-template.json"
+      template_name => "syslog-gelf"
+      template_overwrite => true
+      document_type => "_doc"
+    }
+  }
+}

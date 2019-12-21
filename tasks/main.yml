@@ -19,7 +19,7 @@
 - name: Reload the Logstash service
   shell: echo ''
   notify: 'Ensure logstash service is enabled'
-  when: logstash_update is changed or logstash_network_inputs_conf_update is changed or logstash_network_inputs_template_update is changed or logstash_network_inputs_pattern_update is changed or logstash_blob_inputs_conf_update is changed or logstash_blob_inputs_template_update is changed or logstash_blob_inputs_pattern_update is changed or logstash_jvm is changed or logstash_conf is changed
+  when: logstash_update is changed or logstash_inputs_conf_update is changed or logstash_inputs_template_update is changed or logstash_inputs_pattern_update is changed or logstash_jvm is changed or logstash_conf is changed
 
 - name: Force the handler to run immediately
   meta: flush_handlers

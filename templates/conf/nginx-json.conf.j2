@@ -1,0 +1,35 @@
+input {
+  {{ item.protocol }} {
+    port => {{ item.port }}
+    tags => ["nginx-json"]
+  }
+}
+
+filter {
+  if "nginx-json" in[tags]{
+    json {
+      source =>"message"
+      remove_field => ["message"]
+    }
+    geoip {
+      source => "remote_addr"
+      target => "geoip"
+      database => "/etc/logstash/GeoLite2-City.mmdb"
+    }
+  }
+}
+
+output {
+  if "nginx-json" in[tags]{
+    elasticsearch {
+      hosts => ['{{ logstash_elastic_hosts | list | join(":" + logstash_elastic_port + "', '") }}:{{ logstash_elastic_port }}']
+      user => "{{ logstash_elastic_stack_user }}"
+      password => "{{ logstash_elastic_stack_pass }}"
+      index => "nginx-json-%{+YYYY.MM.dd}"
+      template => "/etc/logstash/template/elastic-nginx-json-template.json"
+      template_name => "nginx-json"
+      template_overwrite => true
+      document_type => "_doc"
+    }
+  }
+}

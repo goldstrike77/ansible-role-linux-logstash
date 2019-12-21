@@ -1,5 +1,5 @@
 ---
-- name: Logstash network input configuration file transfer.
+- name: Logstash input configuration file transfer.
   template:
     src: 'conf/{{ item.name }}.conf.j2'
     dest: '/etc/logstash/conf.d/{{ item.name }}.conf'
@@ -7,10 +7,10 @@
     owner: 'logstash'
     group: 'logstash'
     mode: '0644'
-  loop: '{{ logstash_network_inputs_arg }}'
-  register: logstash_network_inputs_conf_update
+  loop: '{{ logstash_inputs_arg }}'
+  register: logstash_inputs_conf_update
 
-- name: Logstash network input template file transfer.
+- name: Logstash input template file transfer.
   template:
     src: 'template/elastic-{{ item.name }}-template.json.j2'
     dest: '/etc/logstash/template/elastic-{{ item.name }}-template.json'
@@ -18,47 +18,17 @@
     owner: 'logstash'
     group: 'logstash'
     mode: '0644'
-  loop: '{{ logstash_network_inputs_arg }}'
-  register: logstash_network_inputs_template_update
+  loop: '{{ logstash_inputs_arg }}'
+  loop_control:
+    index_var: index
+  register: logstash_inputs_template_update
 
-- name: Logstash network input pattern file transfer.
+- name: Logstash input pattern file transfer.
   copy:
     src: 'pattern/esguardian-{{ item.name }}'
     dest: '/etc/logstash/patterns/esguardian-{{ item.name }}'
     owner: 'logstash'
     group: 'logstash'
     mode: '0644'
-  loop: '{{ logstash_network_inputs_arg }}'
-  register: logstash_network_inputs_pattern_update
-
-- name: Logstash blob input configuration file transfer.
-  template:
-    src: 'conf/{{ item.name }}.conf.j2'
-    dest: '/etc/logstash/conf.d/{{ item.name }}.conf'
-    backup: 'yes'
-    owner: 'logstash'
-    group: 'logstash'
-    mode: '0644'
-  loop: '{{ logstash_blob_inputs_arg }}'
-  register: logstash_blob_inputs_conf_update
-
-- name: Logstash blob input template file transfer.
-  template:
-    src: 'template/elastic-{{ item.name }}-template.json.j2'
-    dest: '/etc/logstash/template/elastic-{{ item.name }}-template.json'
-    backup: 'yes'
-    owner: 'logstash'
-    group: 'logstash'
-    mode: '0644'
-  loop: '{{ logstash_blob_inputs_arg }}'
-  register: logstash_blob_inputs_template_update
-
-- name: Logstash blob input pattern file transfer.
-  copy:
-    src: 'pattern/esguardian-{{ item.name }}'
-    dest: '/etc/logstash/patterns/esguardian-{{ item.name }}'
-    owner: 'logstash'
-    group: 'logstash'
-    mode: '0644'
-  loop: '{{ logstash_blob_inputs_arg }}'
-  register: logstash_blob_inputs_pattern_update
+  loop: '{{ logstash_inputs_arg }}'
+  register: logstash_inputs_pattern_update

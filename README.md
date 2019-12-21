@@ -73,8 +73,7 @@ There are some variables in defaults/main.yml which can (Or needs to) be overrid
 * `logstash_kibana_ngx_logs_path`: Specify the NGinx logs directory.
 
 ##### Inputs Variables
-* `logstash_network_inputs_arg`: Define the global common inputs parameters.
-* `logstash_blob_inputs_arg`: Define the global common inputs parameters.
+* `logstash_inputs_arg`: Define the global common inputs parameters.
 
 ##### Server System Variables
 * `logstash_arg.index_refresh_interval`: How often to perform a index refresh operation.
@@ -143,11 +142,10 @@ You can also use the group_vars or the host_vars files for setting the variables
     logstash_kibana_ngx_port_https: '443'
     logstash_kibana_ngx_site_path: '/data/nginx/site'
     logstash_kibana_ngx_logs_path: '/data/nginx/logs'
-    logstash_network_inputs_arg:
+    logstash_inputs_arg:
       - name: 'cisco-asa'
         protocol: 'udp'
         port: '10514'
-    logstash_blob_inputs_arg:
       - name: 'azure-nsg'
         sa_name: 'xxxxx'
         sa_access_key: 'xxxxx'

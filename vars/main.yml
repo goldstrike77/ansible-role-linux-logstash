@@ -10,3 +10,6 @@ logstash_servers: "\
     {% endif %}\
   {% endfor %}\
   {{ _logstash_servers }}"
+
+#logstash_plugins:
+#  - 'logstash-input-azureblob'

@@ -5,13 +5,32 @@
 
 - name: Allow Logstash inputs port.
   firewalld:
-    port: "{{ item.port }}/{{ item.protocol | lower }}"
+    port: "{{ item.port }}/tcp"
     zone: 'public'
     permanent: 'true'
     immediate: 'true'
     state: 'enabled'
-  loop: '{{ logstash_network_inputs_arg }}'
+  loop: '{{ logstash_inputs_arg }}'
+  changed_when: false
+  failed_when: false
+  ignore_errors: true
+  no_log: true
   when:
-    - logstash_network_inputs_arg is defined
+    - services_state.ansible_facts.services["firewalld.service"] is defined
+    - services_state.ansible_facts.services["firewalld.service"].state == 'running'
+
+- name: Allow Logstash inputs port.
+  firewalld:
+    port: "{{ item.port }}/udp"
+    zone: 'public'
+    permanent: 'true'
+    immediate: 'true'
+    state: 'enabled'
+  loop: '{{ logstash_inputs_arg }}'
+  changed_when: false
+  failed_when: false
+  ignore_errors: true
+  no_log: true
+  when:
     - services_state.ansible_facts.services["firewalld.service"] is defined
     - services_state.ansible_facts.services["firewalld.service"].state == 'running'

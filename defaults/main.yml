@@ -29,15 +29,20 @@ logstash_kibana_ngx_site_path: '{{ logstash_path }}/nginx/site' # Specify the NG
 logstash_kibana_ngx_logs_path: '{{ logstash_path }}/nginx/logs' # Specify the NGinx logs directory.
 
 # Inputs Variables #
-logstash_network_inputs_arg: # Define the global common inputs parameters.
-  - name: 'cisco-asa'
+logstash_inputs_arg: # Define the global common inputs parameters.
+#  - name: 'cisco-asa'
+#    protocol: 'udp'
+#    port: '10514'
+  - name: 'syslog-gelf'
     protocol: 'udp'
-    port: '10514'
-logstash_blob_inputs_arg: # Define the global common inputs parameters.
-  - name: 'azure-nsg'
-    sa_name: 'xxxxx'
-    sa_access_key: 'xxxxx'
-    sa_container: 'xxxxx'
+    port: '12201'
+  - name: 'nginx-json'
+    protocol: 'syslog'
+    port: '12301'
+#  - name: 'azure-nsg'
+#    sa_name: 'xxxxx'
+#    sa_access_key: 'xxxxx'
+#    sa_container: 'xxxxx'
 
 # Server System Variables #
 logstash_arg:

@@ -63,3 +63,17 @@
     - { regexp: '^pipeline.batch.size', line: 'pipeline.batch.size: {{ logstash_arg.pipeline_batch_size }}' }
     - { regexp: '^pipeline.batch.delay', line: 'pipeline.batch.delay: {{ logstash_arg.pipeline_batch_delay }}' }
   register: logstash_conf
+
+- name: Install Logstash input plugin.
+  logstash_plugin:
+    state: 'present'
+    name: '{{ item }}'
+  loop: '{{ logstash_plugins }}'
+  register: logstash_plugins_result
+  until: logstash_plugins_result is succeeded
+  retries: 3
+  delay: 3
+  no_log: true
+  changed_when: false
+  failed_when: false
+  when: logstash_plugins is defined
