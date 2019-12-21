@@ -98,7 +98,7 @@ There are some variables in vars/main.yml:
 ## Dependencies
 - Ansible versions >= 2.8 are supported.
 - [NGinx](https://github.com/goldstrike77/ansible-role-linux-nginx.git)
-- [MongoDB](https://github.com/goldstrike77/ansible-role-linux-mongodb.git) 
+- [Kibana](https://github.com/goldstrike77/ansible-role-linux-kibana.git) 
 - [Elasticsearch](https://github.com/goldstrike77/ansible-role-linux-elasticsearch.git)
 
 ## Example
