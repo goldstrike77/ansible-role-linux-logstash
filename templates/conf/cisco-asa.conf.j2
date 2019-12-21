@@ -80,7 +80,7 @@ output {
       user => "{{ logstash_elastic_stack_user }}"
       password => "{{ logstash_elastic_stack_pass }}"
       index => "cisco-asa-%{+YYYY.MM.dd}"
-      template => "/etc/logstash/elastic-cisco-asa-template.json"
+      template => "/etc/logstash/template/elastic-cisco-asa-template.json"
       template_name => "cisco-asa"
       template_overwrite => true
       document_type => "_doc"

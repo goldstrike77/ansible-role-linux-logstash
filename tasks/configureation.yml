@@ -1,5 +1,25 @@
 ---
-- name: Geolocation database download
+- name: Creating logstash data folder.
+  file:
+    dest: '{{ logstash_path }}/logstash'
+    state: 'directory'
+    owner: 'logstash'
+    group: 'logstash'
+    mode: '0755'
+
+- name: Creating logstash configuration folder.
+  file:
+    dest: '/etc/logstash/{{ item }}'
+    state: 'directory'
+    owner: 'logstash'
+    group: 'logstash'
+    mode: '0755'
+  loop:
+    - 'conf.d'
+    - 'template'
+    - 'patterns'
+
+- name: Geolocation database download.
   unarchive:
     src: 'http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz'
     dest: '/etc/logstash'
@@ -19,3 +39,27 @@
   delay: 5
   changed_when: false
   failed_when: false
+
+- name: Logstash JVM options configuration.
+  lineinfile:
+    state: present
+    dest: '/etc/logstash/jvm.options'
+    regexp: '{{ item.regexp }}'
+    line: '{{ item.line }}'
+  with_items:
+    - { regexp: '^-Xms', line: '-Xms{{ logstash_heap_size }}' }
+    - { regexp: '^-Xmx', line: '-Xmx{{ logstash_heap_size }}' }
+  register: logstash_jvm
+
+- name: Logstash configuration.
+  lineinfile:
+    state: present
+    dest: '/etc/logstash/logstash.yml'
+    regexp: '{{ item.regexp }}'
+    line: '{{ item.line }}'
+  with_items:
+    - { regexp: '^path.data', line: 'path.data: {{ logstash_path }}/logstash' }
+    - { regexp: '^pipeline.workers', line: 'pipeline.workers: {{ logstash_arg.pipeline_workers }}' }
+    - { regexp: '^pipeline.batch.size', line: 'pipeline.batch.size: {{ logstash_arg.pipeline_batch_size }}' }
+    - { regexp: '^pipeline.batch.delay', line: 'pipeline.batch.delay: {{ logstash_arg.pipeline_batch_delay }}' }
+  register: logstash_conf

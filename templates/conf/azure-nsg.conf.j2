@@ -85,7 +85,7 @@ output {
       user => "{{ logstash_elastic_stack_user }}"
       password => "{{ logstash_elastic_stack_pass }}"
       index => "azure-nsg-%{+YYYY.MM.dd}"
-      template => "/etc/logstash/elastic-azure-nsg-template.json"
+      template => "/etc/logstash/template/elastic-azure-nsg-template.json"
       template_name => "azure-nsg"
       template_overwrite => true
       document_type => "_doc"

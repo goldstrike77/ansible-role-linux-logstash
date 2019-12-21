@@ -3,9 +3,9 @@
   "template": "cisco-asa*",
   "settings": {
     "index": {
-      "refresh_interval": "30s",
-      "number_of_shards": "1",
-      "number_of_replicas": "0"
+      "refresh_interval": "{{ logstash_arg.index_refresh_interval }}",
+      "number_of_shards": "{{ logstash_elastic_hosts | length }}",
+      "number_of_replicas": "{% if logstash_elastic_hosts | length > 1 %}1{% else %}0{% endif %}"
     }
   },
   "mappings": {

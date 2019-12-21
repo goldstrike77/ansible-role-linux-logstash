@@ -5,6 +5,7 @@ logstash_version: '6.8.5' # Specify the Logstash version.
 logstash_cluster: 'syslog' # Specifies the name of the cluster.
 logstash_path: '/data' # This directory is used to store server state.
 logstash_rotate_day: '180' # Specify the logs retention days.
+logstash_heap_size: '2g' # Specify the maximum memory allocation pool for a Java virtual machine.
 
 # Role dependencies #
 logstash_elastic_stack_dept: false # A boolean value, whether Elastic Stack components use the same environment.
@@ -20,6 +21,7 @@ logstash_elastic_heap_size: '1g' # Specify the maximum memory allocation pool fo
 logstash_elastic_path: '{{ logstash_path }}' # Specify the ElasticSearch data directory.
 logstash_elastic_node_type: 'default' # Type of nodes: default, master, data, ingest and coordinat.
 logstash_kibana_port: '5601' # Kibana server port.
+logstash_kibana_ngx_dept: 'false' # Whether proxy web interface and API traffic using NGinx.
 logstash_kibana_ngx_domain: 'syslog.example.com' # Defines domain name.
 logstash_kibana_ngx_port_http: '80' # NGinx HTTP listen port.
 logstash_kibana_ngx_port_https: '443' # NGinx HTTPs listen port.
@@ -36,3 +38,10 @@ logstash_blob_inputs_arg: # Define the global common inputs parameters.
     sa_name: 'xxxxx'
     sa_access_key: 'xxxxx'
     sa_container: 'xxxxx'
+
+# Server System Variables #
+logstash_arg:
+  index_refresh_interval: '30s' # How often to perform a index refresh operation.
+  pipeline_workers: '{% if ansible_processor_vcpus > 2 %}{{ (ansible_processor_vcpus / 2) | int }}{% else %}1{% endif %}' # The number of workers.
+  pipeline_batch_size: '{{ ansible_processor_vcpus * 250 }}' # How many events to retrieve from inputs before sending to workers.
+  pipeline_batch_delay: '100' # How long to wait in milliseconds while polling for the next event.
