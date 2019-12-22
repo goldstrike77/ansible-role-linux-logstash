@@ -1,11 +1,11 @@
 ---
 # General parameters #
 logstash_is_install: false # A boolean value, whether install the Logstash.
-logstash_version: '6.8.5' # Specify the Logstash version.
+logstash_version: '6.8.6' # Specify the Logstash version.
 logstash_cluster: 'syslog' # Specifies the name of the cluster.
 logstash_path: '/data' # This directory is used to store server state.
 logstash_rotate_day: '180' # Specify the logs retention days.
-logstash_heap_size: '2g' # Specify the maximum memory allocation pool for a Java virtual machine.
+logstash_heap_size: '1g' # Specify the maximum memory allocation pool for a Java virtual machine.
 
 # Role dependencies #
 logstash_elastic_stack_dept: false # A boolean value, whether Elastic Stack components use the same environment.
@@ -33,6 +33,9 @@ logstash_inputs_arg: # Define the global common inputs parameters.
 #  - name: 'cisco-asa'
 #    protocol: 'udp'
 #    port: '10514'
+  - name: 'syslog-beats'
+    protocol: 'beats'
+    port: '5044'
   - name: 'syslog-gelf'
     protocol: 'udp'
     port: '12201'

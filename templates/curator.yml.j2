@@ -1,0 +1,10 @@
+---
+client:
+  hosts: ['{{ logstash_servers[0] }}']
+  port: {{ logstash_elastic_port | default('9200') }}
+  http_auth: {{ logstash_elastic_stack_user }}:{{ logstash_elastic_stack_pass }}
+  timeout: 30
+  master_only: true
+
+logging:
+  loglevel: INFO

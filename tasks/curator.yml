@@ -1,0 +1,39 @@
+---
+- name: Install requirement python package.
+  pip:
+    name: '{{ item }}'
+    state: 'forcereinstall'
+    extra_args: '-i {{ logstash_pypi_url }}'
+  loop: '{{ logstash_python_dependent_packages }}'
+  register: logstash_python_status
+  until: logstash_python_status is succeeded
+  retries: 5
+  delay: 5
+
+- name: Creating Curator folder.
+  file:
+    dest: '/etc/curator'
+    state: 'directory'
+    owner: 'root'
+    group: 'root'
+    mode: '0755'
+
+- name: Curator Configure & Actions file transfer.
+  template:
+    src: '{{ item }}.j2'
+    dest: '/etc/curator/{{ item }}'
+    backup: 'yes'
+    owner: 'root'
+    group: 'root'
+    mode: '0664'
+  loop:
+    - 'curator.yml'
+    - 'logstash.yml'
+
+- name: Index Lifecycle Management.
+  cron:
+    user: 'root'
+    name: 'Curator maintenance task'
+    minute: "{{ 59 | random(seed=ansible_hostname) }}"
+    hour: "{{ (( ansible_hostname | hash | list | map('int',0,16) | sum ) % 2) + 1 }}"
+    job: '/bin/curator --config /etc/curator/curator.yml /etc/curator/logstash.yml >/dev/null 2>&1'

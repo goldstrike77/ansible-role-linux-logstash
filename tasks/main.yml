@@ -33,3 +33,7 @@
   when:
     - exporter_is_install | bool
     - consul_public_register | bool
+
+- name: Curator tasks
+  include: 'curator.yml'
+  when: logstash_servers[0] in ansible_default_ipv4.address

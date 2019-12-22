@@ -1,0 +1,64 @@
+---
+actions:
+  1:
+    action: delete_indices
+    description: >-
+      Delete indices older than {{ logstash_rotate_day }} days (based on index name), for monitoring-es-{{ logstash_elastic_stack_version.split(".")[0] }}-
+      prefixed indices. Ignore the error if the filter does not result in an
+      actionable list of indices (ignore_empty_list) and exit cleanly.
+    options:
+      ignore_empty_list: True
+      disable_action: False
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: monitoring-es-{{ logstash_elastic_stack_version.split(".")[0] }}-*
+    - filtertype: age
+      source: name
+      direction: older
+      timestring: '%Y.%m.%d'
+      unit: days
+      unit_count: {{ logstash_rotate_day }}
+  2:
+    action: delete_indices
+    description: >-
+      Delete indices older than {{ logstash_rotate_day }} days (based on index name), for monitoring-kibana-{{ logstash_elastic_stack_version.split(".")[0] }}-
+      prefixed indices. Ignore the error if the filter does not result in an
+      actionable list of indices (ignore_empty_list) and exit cleanly.
+    options:
+      ignore_empty_list: True
+      disable_action: False
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: monitoring-kibana-{{ logstash_elastic_stack_version.split(".")[0] }}-*
+    - filtertype: age
+      source: name
+      direction: older
+      timestring: '%Y.%m.%d'
+      unit: days
+      unit_count: {{ logstash_rotate_day }}
+{% if logstash_inputs_arg is defined %}
+{% for index in logstash_inputs_arg %}
+  {{ loop.index + 2 }}:
+    action: delete_indices
+    description: >-
+      Delete indices older than {{ logstash_rotate_day }} days (based on index name), for {{ index.name }}-
+      prefixed indices. Ignore the error if the filter does not result in an
+      actionable list of indices (ignore_empty_list) and exit cleanly.
+    options:
+      ignore_empty_list: True
+      disable_action: False
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: {{ index.name }}-*
+    - filtertype: age
+      source: name
+      direction: older
+      timestring: '%Y.%m.%d'
+      unit: days
+      unit_count: {{ logstash_rotate_day }}
+{% endfor %}
+
+{% endif %}
