@@ -1,0 +1,17 @@
+# -*- mode: conf -*-
+
+[Unit]
+Description=Prometheus exporter for machine metrics, written in Go with pluggable metric collectors.
+Documentation=https://github.com/BonnierNews/logstash_exporter
+After=network.target
+
+[Service]
+EnvironmentFile=-/etc/default/logstash_exporter
+User=logstash
+LimitNOFILE=4096
+LimitNPROC=4096
+ExecStart=/usr/local/bin/logstash_exporter $LOGSTASH_EXPORTER_OPTS
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

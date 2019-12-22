@@ -44,6 +44,10 @@ logstash_inputs_arg: # Define the global common inputs parameters.
 #    sa_access_key: 'xxxxx'
 #    sa_container: 'xxxxx'
 
+# Listen port #
+logstash_port_arg:
+  exporter: '9198' # Port for prometheus exporter.
+
 # Server System Variables #
 logstash_arg:
   index_refresh_interval: '30s' # How often to perform a index refresh operation.

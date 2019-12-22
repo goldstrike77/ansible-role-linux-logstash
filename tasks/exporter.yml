@@ -1,0 +1,36 @@
+---
+- name: Logstash exporter program binary transfer
+  unarchive:
+    src: 'logstash_exporter.tar.xz'
+    dest: '/usr/local/bin'
+    owner: 'logstash'
+    group: 'logstash'
+    mode: '0755'
+  register: logstash_exporter_update
+
+- name: Logstash exporter configure file transfer
+  template:
+    src: 'logstash_exporter.default.j2'
+    dest: '/etc/default/logstash_exporter'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  register: logstash_exporter_config
+
+- name: Logstash service file transfer
+  copy:
+    src: 'logstash_exporter.service'
+    dest: '/lib/systemd/system'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  register: logstash_systemd_update
+
+- name: Reloading the Logstash exporter service
+  systemd:
+    name: 'logstash_exporter.service'
+    enabled: 'yes'
+    state: 'restarted'
+    daemon_reload: 'yes'
+  when: logstash_exporter_update is changed or logstash_exporter_config is changed or logstash_systemd_update is changed
+

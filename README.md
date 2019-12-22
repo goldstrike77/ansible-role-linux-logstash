@@ -75,6 +75,9 @@ There are some variables in defaults/main.yml which can (Or needs to) be overrid
 ##### Inputs Variables
 * `logstash_inputs_arg`: Define the global common inputs parameters.
 
+##### Listen port
+* `logstash_port_arg.exporter`: Port for prometheus exporter.
+
 ##### Server System Variables
 * `logstash_arg.index_refresh_interval`: How often to perform a index refresh operation.
 * `logstash_arg.pipeline_workers`: The number of workers.
@@ -150,6 +153,8 @@ You can also use the group_vars or the host_vars files for setting the variables
         sa_name: 'xxxxx'
         sa_access_key: 'xxxxx'
         sa_container: 'xxxxx'
+    logstash_port_arg:
+      exporter: '9198'
     logstash_arg:
       index_refresh_interval: '30s'
       pipeline_workers: '16'
