@@ -1,0 +1,24 @@
+input {
+  {{ item.protocol }} {
+    port => {{ item.port }}
+    codec => cef
+    tags => ["syslog-rfc"]
+  }
+}
+
+filter {}
+
+output {
+  if "syslog-rfc" in[tags]{
+    elasticsearch {
+      hosts => ['{{ logstash_elastic_hosts | list | join(":" + logstash_elastic_port + "', '") }}:{{ logstash_elastic_port }}']
+      user => "{{ logstash_elastic_stack_user }}"
+      password => "{{ logstash_elastic_stack_pass }}"
+      index => "syslog-rfc-%{+YYYY.MM.dd}"
+      template => "/etc/logstash/template/elastic-syslog-rfc-template.json"
+      template_name => "syslog-rfc"
+      template_overwrite => true
+      document_type => "_doc"
+    }
+  }
+}
