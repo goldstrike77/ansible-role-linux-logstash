@@ -21,6 +21,7 @@ logstash_elastic_heap_size: '1g' # Specify the maximum memory allocation pool fo
 logstash_elastic_path: '{{ logstash_path }}' # Specify the ElasticSearch data directory.
 logstash_elastic_node_type: 'default' # Type of nodes: default, master, data, ingest and coordinat.
 logstash_kibana_port: '5601' # Kibana server port.
+logstash_kibana_proxy: false # Whether running behind a HaProxy.
 logstash_kibana_ngx_dept: false # Whether proxy web interface and API traffic using NGinx.
 logstash_kibana_ngx_domain: 'syslog.example.com' # Defines domain name.
 logstash_kibana_ngx_port_http: '80' # NGinx HTTP listen port.

@@ -65,6 +65,7 @@ There are some variables in defaults/main.yml which can (Or needs to) be overrid
 * `logstash_elastic_path`: Specify the ElasticSearch data directory.
 * `logstash_elastic_node_type`: Type of nodes`: default, master, data, ingest and coordinat.
 * `logstash_kibana_port`: Kibana server port.
+* `logstash_kibana_proxy`: Whether running behind a HaProxy.
 * `logstash_kibana_ngx_dept`: Whether proxy web interface and API traffic using NGinx.
 * `logstash_kibana_ngx_domain`: Defines domain name.
 * `logstash_kibana_ngx_port_http`: NGinx HTTP listen port.
@@ -139,6 +140,7 @@ You can also use the group_vars or the host_vars files for setting the variables
     logstash_elastic_path: '/data'
     logstash_elastic_node_type: 'default'
     logstash_kibana_port: '5601'
+    logstash_kibana_proxy: false
     logstash_kibana_ngx_dept: false
     logstash_kibana_ngx_domain: 'syslog.example.com'
     logstash_kibana_ngx_port_http: '80'
