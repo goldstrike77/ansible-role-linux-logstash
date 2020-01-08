@@ -1,8 +1,8 @@
 input {
-  {{ item.protocol }} {
+  gelf {
     port => {{ item.port }}
-    codec => "json"
-    type => "rsyslog"
+    type => gelf
+    use_{{ item.protocol | lower }} => true
     tags => ["syslog-gelf"]
   }
 }
