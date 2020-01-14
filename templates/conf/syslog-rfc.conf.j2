@@ -1,7 +1,7 @@
 input {
   {{ item.protocol }} {
     port => {{ item.port }}
-    codec => cef
+    codec => plain
     tags => ["syslog-rfc"]
   }
 }
