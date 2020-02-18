@@ -71,4 +71,6 @@ dependencies:
       kibana_ngx_port_https: '{{ logstash_kibana_ngx_port_https | default("443") }}'
       kibana_ngx_site_path: '{{ logstash_kibana_ngx_site_path | default("/data/nginx/site") }}'
       kibana_ngx_logs_path: '{{ logstash_kibana_ngx_logs_path | default("/data/nginx/logs") }}'
+      kibana_plugins:
+        - 'http://github.com/pjhampton/kibana-prometheus-exporter/releases/download/{{ kibana_version }}/kibana-prometheus-exporter-{{ kibana_version }}.zip'
     when: logstash_elastic_stack_dept | bool
