@@ -4,6 +4,7 @@
     url: '{{ consul_public_http_prot }}://{{ item }}:{{ consul_public_http_port }}/v1/agent/service/register'
     method: 'GET'
     timeout: '5'
+    validate_certs: 'no'
   environment:
     no_proxy: '{{ item }}'
   loop: '{{ consul_public_clients }}'
@@ -22,6 +23,7 @@
       X-Consul-Token: '{{ consul_public_exporter_token }}'
       X-Requested-By: '{{ ansible_default_ipv4.address }}'
       cache-control: 'no-cache'
+    validate_certs: 'no'
   environment:
     no_proxy: '{{ item.client }}'
   loop: "{{ check_consul_reg.results | json_query('[*].{client:item,status:status}') }}"
