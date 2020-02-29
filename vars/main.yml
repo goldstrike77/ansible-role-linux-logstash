@@ -18,3 +18,4 @@ logstash_pypi_url: 'https://mirrors.aliyun.com/pypi/simple/'
 
 logstash_python_dependent_packages:
   - 'elasticsearch-curator'
+  - 'pip'
