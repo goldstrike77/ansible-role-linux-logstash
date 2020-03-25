@@ -54,6 +54,7 @@ logstash_inputs_arg: # Define the global common inputs parameters.
 # Listen port #
 logstash_port_arg:
   exporter: '9198' # Port for prometheus exporter.
+  api: '9600' # Port for the metrics REST endpoint.
 
 # Server System Variables #
 logstash_arg:

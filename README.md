@@ -78,6 +78,7 @@ There are some variables in defaults/main.yml which can (Or needs to) be overrid
 
 ##### Listen port
 * `logstash_port_arg.exporter`: Port for prometheus exporter.
+* `logstash_port_arg.api`: Port for the metrics REST endpoint.
 
 ##### Server System Variables
 * `logstash_arg.index_refresh_interval`: How often to perform a index refresh operation.
@@ -158,6 +159,7 @@ You can also use the group_vars or the host_vars files for setting the variables
         sa_container: 'xxxxx'
     logstash_port_arg:
       exporter: '9198'
+      api: '9600'
     logstash_arg:
       index_refresh_interval: '30s'
       pipeline_workers: '16'
