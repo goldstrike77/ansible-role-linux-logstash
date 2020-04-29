@@ -101,7 +101,8 @@ There are some variables in vars/main.yml:
 * `logstash_kernel_parameters`: Operating system variables.
 
 ## Dependencies
-- Ansible versions >= 2.8 are supported.
+- Ansible versions >= 2.8
+- Python >= 2.7.5
 - [NGinx](https://github.com/goldstrike77/ansible-role-linux-nginx.git)
 - [Kibana](https://github.com/goldstrike77/ansible-role-linux-kibana.git) 
 - [Elasticsearch](https://github.com/goldstrike77/ansible-role-linux-elasticsearch.git)
