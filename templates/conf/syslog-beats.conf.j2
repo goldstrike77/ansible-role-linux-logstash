@@ -2,6 +2,7 @@ input {
   {{ item.protocol }} {
     port => {{ item.port }}
     tags => ["syslog-beats"]
+    client_inactivity_timeout => "600"
   }
 }
 
