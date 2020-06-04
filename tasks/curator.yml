@@ -33,7 +33,7 @@
 - name: Index Lifecycle Management.
   cron:
     user: 'root'
-    name: 'Curator maintenance task'
+    name: 'Curator Logstash maintenance task'
     minute: "{{ 59 | random(seed=ansible_hostname) }}"
     hour: "{{ (( ansible_hostname | hash | list | map('int',0,16) | sum ) % 2) + 1 }}"
     job: '/bin/curator --config /etc/curator/curator.yml /etc/curator/logstash.yml >/dev/null 2>&1'
