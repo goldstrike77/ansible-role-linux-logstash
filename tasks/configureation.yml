@@ -5,7 +5,7 @@
     state: 'directory'
     owner: 'logstash'
     group: 'logstash'
-    mode: '0755'
+    mode: '0750'
 
 - name: Creating logstash configuration folder.
   file:
@@ -13,7 +13,7 @@
     state: 'directory'
     owner: 'logstash'
     group: 'logstash'
-    mode: '0755'
+    mode: '0750'
   loop:
     - 'conf.d'
     - 'template'
@@ -21,7 +21,7 @@
 
 - name: Geolocation database download.
   unarchive:
-    src: 'https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=g0Am4t3Se4rpwSqg&suffix=tar.gz'
+    src: "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=g0Am4t3Se4rpwSqg&suffix=tar.gz"
     dest: '/etc/logstash'
     owner: 'logstash'
     group: 'logstash'

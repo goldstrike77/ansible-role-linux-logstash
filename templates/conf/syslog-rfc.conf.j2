@@ -12,6 +12,9 @@ output {
   if "syslog-rfc" in[tags]{
     elasticsearch {
       hosts => ['{{ logstash_elastic_hosts | list | join(":" + logstash_elastic_port + "', '") }}:{{ logstash_elastic_port }}']
+      ssl_certificate_verification => false
+      ssl => {% if logstash_elastic_stack_auth | bool and logstash_elastic_stack_https | bool %}true{% else %}false{% endif %}
+
       user => "{{ logstash_elastic_stack_user }}"
       password => "{{ logstash_elastic_stack_pass }}"
       index => "syslog-rfc-%{+YYYY.MM.dd}"

@@ -14,7 +14,7 @@ logstash_servers: "\
 #logstash_plugins:
 #  - 'logstash-input-azureblob'
 
-logstash_pypi_url: 'https://mirrors.aliyun.com/pypi/simple/'
+logstash_pypi_url: 'pypi.tuna.tsinghua.edu.cn'
 
 logstash_python_dependent_packages:
   - 'elasticsearch-curator'

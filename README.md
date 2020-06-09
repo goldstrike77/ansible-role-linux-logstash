@@ -26,7 +26,7 @@ __Table of Contents__
 - [Contributors](#Contributors)
 
 ## Overview
-This Ansible role installs Logstash on linux operating system, including establishing a filesystem structure and server configuration with some common operational features.
+This Ansible role installs Logstash on linux operating system, including establishing a filesystem structure and server configuration with some common operational features. Logstash is a free and open server-side data processing pipeline that ingests data from a multitude of sources, transforms it, and then sends it to your favorite "stash."
 
 ## Requirements
 ### Operating systems
@@ -56,12 +56,14 @@ There are some variables in defaults/main.yml which can (Or needs to) be overrid
 
 ##### Elastic Stack parameters
 * `logstash_elastic_stack_auth`: A boolean value, Enable or Disable authentication.
+* `logstash_elastic_stack_https`: A boolean value, whether Encrypting HTTP client communications.
 * `logstash_elastic_stack_user`: Authorization user name, do not modify it.
 * `logstash_elastic_stack_pass`: Authorization user password.
 * `logstash_elastic_stack_version`: Specify the Elastic Stack version.
 * `logstash_elastic_hosts`: List of Elasticsearch hosts Logstash should connect to.
 * `logstash_elastic_port`: Elasticsearch REST port.
 * `logstash_elastic_heap_size`: Specify the maximum memory allocation pool for a Java virtual machine.
+* `logstash_elastic_memory_lock`: A boolean value, whether lock the process address space into memory on startup.
 * `logstash_elastic_path`: Specify the ElasticSearch data directory.
 * `logstash_elastic_node_type`: Type of nodes`: default, master, data, ingest and coordinat.
 * `logstash_kibana_port`: Kibana server port.
@@ -112,9 +114,14 @@ There are some variables in vars/main.yml:
 ### Hosts inventory file
 See tests/inventory for an example.
 
-    node01 ansible_host='192.168.1.10' logstash_cluster='syslog' logstash_version='6.8.5'
-    node02 ansible_host='192.168.1.11' logstash_cluster='syslog' logstash_version='6.8.5'
-    node03 ansible_host='192.168.1.12' logstash_cluster='syslog' logstash_version='6.8.5'
+    [syslog:vars]
+    logstash_cluster='syslog'
+    logstash_version='7.6.2'
+
+    [syslog]
+    node01 ansible_host='192.168.1.10'
+    node02 ansible_host='192.168.1.11'
+    node03 ansible_host='192.168.1.12'
 
 ### Vars in role configuration
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
@@ -127,19 +134,21 @@ Including an example of how to use your role (for instance, with variables passe
 ### Combination of group vars and playbook
 You can also use the group_vars or the host_vars files for setting the variables needed for this role. File you should change: group_vars/all or host_vars/`group_name`
 
-    logstash_version: '6.8.5'
+    logstash_version: '7.6.2'
     logstash_cluster: 'syslog'
     logstash_path: '/data'
     logstash_rotate_day: '180'
     logstash_heap_size: '2g'
     logstash_elastic_stack_dept: false
     logstash_elastic_stack_auth: false
+    logstash_elastic_stack_https: false
     logstash_elastic_stack_user: 'elastic'
     logstash_elastic_stack_pass: 'changeme'
-    logstash_elastic_stack_version: '6.8.5'
+    logstash_elastic_stack_version: '{{ logstash_version }}'
     logstash_elastic_hosts: 'localhost'
     logstash_elastic_port: '9200'
     logstash_elastic_heap_size: '1g'
+    logstash_elastic_memory_lock: false
     logstash_elastic_path: '/data'
     logstash_elastic_node_type: 'default'
     logstash_kibana_port: '5601'

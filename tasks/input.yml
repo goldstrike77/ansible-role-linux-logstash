@@ -6,7 +6,7 @@
     backup: 'yes'
     owner: 'logstash'
     group: 'logstash'
-    mode: '0644'
+    mode: '0640'
   loop: '{{ logstash_inputs_arg }}'
   register: logstash_inputs_conf_update
 
@@ -17,7 +17,7 @@
     backup: 'yes'
     owner: 'logstash'
     group: 'logstash'
-    mode: '0644'
+    mode: '0640'
   loop: '{{ logstash_inputs_arg }}'
   loop_control:
     index_var: index
@@ -29,6 +29,6 @@
     dest: '/etc/logstash/patterns/esguardian-{{ item.name }}'
     owner: 'logstash'
     group: 'logstash'
-    mode: '0644'
+    mode: '0640'
   loop: '{{ logstash_inputs_arg }}'
   register: logstash_inputs_pattern_update
