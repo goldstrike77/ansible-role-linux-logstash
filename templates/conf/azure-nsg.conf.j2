@@ -88,6 +88,9 @@ output {
       user => "{{ logstash_elastic_stack_user }}"
       password => "{{ logstash_elastic_stack_pass }}"
       index => "azure-nsg-%{+YYYY.MM.dd}"
+{% if logstash_elastic_stack_version.split('.')[0] != '5' %}
+      ilm_enabled => true
+{% endif %}
       template => "/etc/logstash/template/elastic-azure-nsg-template.json"
       template_name => "azure-nsg"
       template_overwrite => true

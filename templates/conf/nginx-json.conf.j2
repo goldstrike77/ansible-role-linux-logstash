@@ -29,6 +29,9 @@ output {
       user => "{{ logstash_elastic_stack_user }}"
       password => "{{ logstash_elastic_stack_pass }}"
       index => "nginx-json-%{+YYYY.MM.dd}"
+{% if logstash_elastic_stack_version.split('.')[0] != '5' %}
+      ilm_enabled => true
+{% endif %}
       template => "/etc/logstash/template/elastic-nginx-json-template.json"
       template_name => "nginx-json"
       template_overwrite => true

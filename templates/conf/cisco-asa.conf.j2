@@ -83,6 +83,9 @@ output {
       user => "{{ logstash_elastic_stack_user }}"
       password => "{{ logstash_elastic_stack_pass }}"
       index => "cisco-asa-%{+YYYY.MM.dd}"
+{% if logstash_elastic_stack_version.split('.')[0] != '5' %}
+      ilm_enabled => true
+{% endif %}
       template => "/etc/logstash/template/elastic-cisco-asa-template.json"
       template_name => "cisco-asa"
       template_overwrite => true

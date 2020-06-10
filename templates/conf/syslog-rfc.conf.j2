@@ -18,6 +18,9 @@ output {
       user => "{{ logstash_elastic_stack_user }}"
       password => "{{ logstash_elastic_stack_pass }}"
       index => "syslog-rfc-%{+YYYY.MM.dd}"
+{% if logstash_elastic_stack_version.split('.')[0] != '5' %}
+      ilm_enabled => true
+{% endif %}
       template => "/etc/logstash/template/elastic-syslog-rfc-template.json"
       template_name => "syslog-rfc"
       template_overwrite => true
