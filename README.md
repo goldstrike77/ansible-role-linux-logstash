@@ -10,6 +10,7 @@ ___
 __Table of Contents__
 
 - [Overview](#overview)
+  * [Architecture](#Architecture)
 - [Requirements](#requirements)
   * [Operating systems](#operating-systems)
   * [Logstash Versions](#logstash-versions)
@@ -26,7 +27,10 @@ __Table of Contents__
 - [Contributors](#Contributors)
 
 ## Overview
-Logstash is a free and open server-side data processing pipeline, Is the “L” in the ELK Stack - the world’s most popular log analysis platform and is responsible for aggregating data from different sources, processing it, and sending it down the pipeline, usually to be directly indexed in Elasticsearch. Logstash can pull from almost any data source using input plugins, apply a wide variety of data transformations and enhancements using filter plugins, and ship the data to a large number of destinations using output plugins. The role Logstash plays in the stack, therefore, is critical — it allows you to filter, massage, and shape your data so that it’s easier to work with. 
+Logstash is a free and open server-side data processing pipeline, Is the “L” in the ELK Stack - the world’s most popular log analysis platform and is responsible for aggregating data from different sources, processing it, and sending it down the pipeline, usually to be directly indexed in Elasticsearch. Logstash can pull from almost any data source using input plugins, apply a wide variety of data transformations and enhancements using filter plugins, and ship the data to a large number of destinations using output plugins. The role Logstash plays in the stack, therefore, is critical — it allows you to filter, massage, and shape your data so that it’s easier to work with.
+
+### Architecture
+<p><img src="https://raw.githubusercontent.com/goldstrike77/goldstrike77.github.io/master/img/elk_arch.png" /></p>
 
 ## Requirements
 ### Operating systems
