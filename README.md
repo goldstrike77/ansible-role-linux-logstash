@@ -26,11 +26,11 @@ __Table of Contents__
 - [Contributors](#Contributors)
 
 ## Overview
-This Ansible role installs Logstash on linux operating system, including establishing a filesystem structure and server configuration with some common operational features. Logstash is a free and open server-side data processing pipeline that ingests data from a multitude of sources, transforms it, and then sends it to your favorite "stash."
+Logstash is a free and open server-side data processing pipeline, Is the “L” in the ELK Stack - the world’s most popular log analysis platform and is responsible for aggregating data from different sources, processing it, and sending it down the pipeline, usually to be directly indexed in Elasticsearch. Logstash can pull from almost any data source using input plugins, apply a wide variety of data transformations and enhancements using filter plugins, and ship the data to a large number of destinations using output plugins. The role Logstash plays in the stack, therefore, is critical — it allows you to filter, massage, and shape your data so that it’s easier to work with. 
 
 ## Requirements
 ### Operating systems
-This role will work on the following operating systems:
+This Ansible role installs Logstash on linux operating system, including establishing a filesystem structure and server configuration with some common operational features. This role will work on the following operating systems:
 
   * CentOS 7
 
@@ -85,14 +85,14 @@ There are some variables in defaults/main.yml which can (Or needs to) be overrid
 ##### Server System Variables
 * `logstash_arg.index_refresh_interval`: How often to perform a index refresh operation.
 * `logstash_arg.pipeline_workers`: The number of workers.
-* `logstash_arg.pipeline_batch_size`:How many events to retrieve from inputs before sending to workers.
+* `logstash_arg.pipeline_batch_size`: How many events to retrieve from inputs before sending to workers.
 * `logstash_arg.pipeline_batch_delay`: How long to wait in milliseconds while polling for the next event.
 
 ##### Service Mesh
 * `environments`: Define the service environment.
 * `tags`: Define the service custom label.
 * `exporter_is_install`: Whether to install prometheus exporter.
-* `consul_public_register`: false Whether register a exporter service with public consul client.
+* `consul_public_register`: Whether register a exporter service with public consul client.
 * `consul_public_exporter_token`: Public Consul client ACL token.
 * `consul_public_http_prot`: The consul Hypertext Transfer Protocol.
 * `consul_public_http_port`: The consul HTTP API port.
@@ -126,69 +126,73 @@ See tests/inventory for an example.
 ### Vars in role configuration
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: all
-      roles:
-         - role: ansible-role-linux-logstash
-           logstash_cluster='syslog'
+```yaml
+- hosts: all
+  roles:
+     - role: ansible-role-linux-logstash
+       logstash_cluster='syslog'
+```
 
 ### Combination of group vars and playbook
 You can also use the group_vars or the host_vars files for setting the variables needed for this role. File you should change: group_vars/all or host_vars/`group_name`
 
-    logstash_version: '7.6.2'
-    logstash_cluster: 'syslog'
-    logstash_path: '/data'
-    logstash_rotate_day: '180'
-    logstash_heap_size: '2g'
-    logstash_elastic_stack_dept: false
-    logstash_elastic_stack_auth: false
-    logstash_elastic_stack_https: false
-    logstash_elastic_stack_user: 'elastic'
-    logstash_elastic_stack_pass: 'changeme'
-    logstash_elastic_stack_version: '{{ logstash_version }}'
-    logstash_elastic_hosts: 'localhost'
-    logstash_elastic_port: '9200'
-    logstash_elastic_heap_size: '1g'
-    logstash_elastic_memory_lock: false
-    logstash_elastic_path: '/data'
-    logstash_elastic_node_type: 'default'
-    logstash_kibana_port: '5601'
-    logstash_kibana_proxy: false
-    logstash_kibana_ngx_dept: false
-    logstash_kibana_ngx_domain: 'syslog.example.com'
-    logstash_kibana_ngx_port_http: '80'
-    logstash_kibana_ngx_port_https: '443'
-    logstash_kibana_ngx_site_path: '/data/nginx/site'
-    logstash_kibana_ngx_logs_path: '/data/nginx/logs'
-    logstash_inputs_arg:
-      - name: 'cisco-asa'
-        protocol: 'udp'
-        port: '10514'
-      - name: 'azure-nsg'
-        sa_name: 'xxxxx'
-        sa_access_key: 'xxxxx'
-        sa_container: 'xxxxx'
-    logstash_port_arg:
-      exporter: '9198'
-      api: '9600'
-    logstash_arg:
-      index_refresh_interval: '30s'
-      pipeline_workers: '16'
-      pipeline_batch_size: '5000'
-      pipeline_batch_delay: '100'
-    environments: 'SIT'
-    tags:
-      subscription: 'default'
-      owner: 'nobody'
-      department: 'Infrastructure'
-      organization: 'The Company'
-      region: 'IDC01'
-    exporter_is_install: false
-    consul_public_register: false
-    consul_public_exporter_token: '00000000-0000-0000-0000-000000000000'
-    consul_public_http_prot: 'https'
-    consul_public_http_port: '8500'
-    consul_public_clients:
-      - '127.0.0.1'
+```yaml
+logstash_version: '7.6.2'
+logstash_cluster: 'syslog'
+logstash_path: '/data'
+logstash_rotate_day: '180'
+logstash_heap_size: '2g'
+logstash_elastic_stack_dept: false
+logstash_elastic_stack_auth: false
+logstash_elastic_stack_https: false
+logstash_elastic_stack_user: 'elastic'
+logstash_elastic_stack_pass: 'changeme'
+logstash_elastic_stack_version: '{{ logstash_version }}'
+logstash_elastic_hosts: 'localhost'
+logstash_elastic_port: '9200'
+logstash_elastic_heap_size: '1g'
+logstash_elastic_memory_lock: false
+logstash_elastic_path: '/data'
+logstash_elastic_node_type: 'default'
+logstash_kibana_port: '5601'
+logstash_kibana_proxy: false
+logstash_kibana_ngx_dept: false
+logstash_kibana_ngx_domain: 'syslog.example.com'
+logstash_kibana_ngx_port_http: '80'
+logstash_kibana_ngx_port_https: '443'
+logstash_kibana_ngx_site_path: '/data/nginx/site'
+logstash_kibana_ngx_logs_path: '/data/nginx/logs'
+logstash_inputs_arg:
+  - name: 'cisco-asa'
+    protocol: 'udp'
+    port: '10514'
+  - name: 'azure-nsg'
+    sa_name: 'xxxxx'
+    sa_access_key: 'xxxxx'
+    sa_container: 'xxxxx'
+logstash_port_arg:
+  exporter: '9198'
+  api: '9600'
+logstash_arg:
+  index_refresh_interval: '30s'
+  pipeline_workers: '16'
+  pipeline_batch_size: '5000'
+  pipeline_batch_delay: '100'
+environments: 'SIT'
+tags:
+  subscription: 'default'
+  owner: 'nobody'
+  department: 'Infrastructure'
+  organization: 'The Company'
+  region: 'IDC01'
+exporter_is_install: false
+consul_public_register: false
+consul_public_exporter_token: '00000000-0000-0000-0000-000000000000'
+consul_public_http_prot: 'https'
+consul_public_http_port: '8500'
+consul_public_clients:
+  - '127.0.0.1'
+```
 
 ## License
 ![](https://img.shields.io/badge/MIT-purple.svg?style=for-the-badge)
