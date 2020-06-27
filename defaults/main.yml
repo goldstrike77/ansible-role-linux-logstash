@@ -1,7 +1,7 @@
 ---
 # General parameters #
 logstash_is_install: false # A boolean value, whether install the Logstash.
-logstash_version: '7.6.2' # Specify the Logstash version.
+logstash_version: '7.7.1' # Specify the Logstash version.
 logstash_cluster: 'syslog' # Specifies the name of the cluster.
 logstash_path: '/data' # This directory is used to store server state.
 logstash_rotate_day: '180' # Specify the logs retention days.
@@ -11,8 +11,8 @@ logstash_heap_size: '1g' # Specify the maximum memory allocation pool for a Java
 logstash_elastic_stack_dept: false # A boolean value, whether Elastic Stack components use the same environment.
 
 # Elastic Stack parameters #
-logstash_elastic_stack_auth: false # A boolean value, Enable or Disable authentication.
-logstash_elastic_stack_https: false # A boolean value, whether Encrypting HTTP client communications.
+logstash_elastic_stack_auth: true # A boolean value, Enable or Disable authentication.
+logstash_elastic_stack_https: true # A boolean value, whether Encrypting HTTP client communications.
 logstash_elastic_stack_user: 'elastic' # Authorization user name, do not modify it.
 logstash_elastic_stack_pass: 'changeme' # Authorization user password.
 logstash_elastic_stack_version: '{{ logstash_version }}' # Specify the Elastic Stack version.

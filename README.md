@@ -34,7 +34,7 @@ Logstash is a free and open server-side data processing pipeline, Is the “L”
 
 ## Requirements
 ### Operating systems
-This Ansible role installs Logstash on linux operating system, including establishing a filesystem structure and server configuration with some common operational features. This role will work on the following operating systems:
+This Ansible role installs Logstash on Linux operating system, including establishing a filesystem structure and server configuration with some common operational features, Will works on the following operating systems:
 
   * CentOS 7
 
@@ -120,7 +120,7 @@ See tests/inventory for an example.
 
     [syslog:vars]
     logstash_cluster='syslog'
-    logstash_version='7.6.2'
+    logstash_version='7.7.1'
 
     [syslog]
     node01 ansible_host='192.168.1.10'
@@ -138,17 +138,17 @@ Including an example of how to use your role (for instance, with variables passe
 ```
 
 ### Combination of group vars and playbook
-You can also use the group_vars or the host_vars files for setting the variables needed for this role. File you should change: group_vars/all or host_vars/`group_name`
+You can also use the group_vars or the host_vars files for setting the variables needed for this role. File you should change: group_vars/all or host_vars/`group_name`.
 
 ```yaml
-logstash_version: '7.6.2'
+logstash_version: '7.7.1'
 logstash_cluster: 'syslog'
 logstash_path: '/data'
 logstash_rotate_day: '180'
 logstash_heap_size: '2g'
-logstash_elastic_stack_dept: false
-logstash_elastic_stack_auth: false
-logstash_elastic_stack_https: false
+logstash_elastic_stack_dept: true
+logstash_elastic_stack_auth: true
+logstash_elastic_stack_https: true
 logstash_elastic_stack_user: 'elastic'
 logstash_elastic_stack_pass: 'changeme'
 logstash_elastic_stack_version: '{{ logstash_version }}'
