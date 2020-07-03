@@ -21,7 +21,7 @@
 
 - name: Geolocation database download.
   unarchive:
-    src: "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=g0Am4t3Se4rpwSqg&suffix=tar.gz"
+    src: "http://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=g0Am4t3Se4rpwSqg&suffix=tar.gz"
     dest: '/etc/logstash'
     owner: 'logstash'
     group: 'logstash'
