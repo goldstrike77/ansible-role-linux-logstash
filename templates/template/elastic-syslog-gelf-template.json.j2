@@ -1,6 +1,9 @@
 {
   "order": {{ index }},
   "template": "syslog-gelf*",
+  "index_patterns": [
+    "syslog-gelf-*"
+  ],
   "settings": {
     "index": {
       "refresh_interval": "{{ logstash_arg.index_refresh_interval }}",

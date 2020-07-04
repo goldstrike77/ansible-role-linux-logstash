@@ -1,6 +1,9 @@
 {
   "order": {{ index }},
   "template": "syslog-beats*",
+  "index_patterns": [
+    "syslog-beats-*"
+  ],
   "settings": {
     "index": {
       "refresh_interval": "{{ logstash_arg.index_refresh_interval }}",

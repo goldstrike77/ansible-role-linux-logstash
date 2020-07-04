@@ -1,6 +1,9 @@
 {
   "order": {{ index }},
   "template": "azure-nsg*",
+  "index_patterns": [
+    "azure-nsg-*"
+  ],
   "settings": {
     "index": {
       "refresh_interval": "{{ logstash_arg.index_refresh_interval }}",

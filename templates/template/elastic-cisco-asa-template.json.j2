@@ -1,6 +1,9 @@
 {
   "order": {{ index }},
   "template": "cisco-asa*",
+  "index_patterns": [
+    "cisco-asa-*"
+  ],
   "settings": {
     "index": {
       "refresh_interval": "{{ logstash_arg.index_refresh_interval }}",

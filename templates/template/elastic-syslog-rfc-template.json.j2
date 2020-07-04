@@ -1,6 +1,9 @@
 {
   "order": {{ index }},
   "template": "syslog-rfc*",
+  "index_patterns": [
+    "syslog-rfc-*"
+  ],
   "settings": {
     "index": {
       "refresh_interval": "{{ logstash_arg.index_refresh_interval }}",
