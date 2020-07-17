@@ -1,10 +1,6 @@
 input {
   {{ item.protocol }} {
     port => {{ item.port }}
-{% if item.protocol | lower == 'udp' %}
-    workers => {{ ansible_processor_vcpus }}
-{% endif %}
-
     tags => ["cisco-asa"]
   }
 }

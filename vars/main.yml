@@ -25,5 +25,5 @@ logstash_kernel_parameters:
   - { variable: 'net.core.netdev_max_backlog', value: '262144' }
   - { variable: 'net.core.rmem_max', value: '2097152' }
   - { variable: 'net.core.rmem_default', value: '2097152' }
-  - { variable: 'net.core.udp_rmem_min', value: '16384' }
-  - { variable: 'net.core.udp_mem', value: '2097152 4194304 8388608' }
+  - { variable: 'net.ipv4.udp_rmem_min', value: '16384' }
+  - { variable: 'net.ipv4.udp_mem', value: '2097152 4194304 8388608' }
