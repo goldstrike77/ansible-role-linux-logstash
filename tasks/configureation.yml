@@ -1,4 +1,14 @@
 ---
+- name: Configure kernel parameters.
+  sysctl:
+    name: '{{ item.variable }}'
+    value: '{{ item.value }}'
+    state: 'present'
+    reload: 'yes'
+    sysctl_set: 'yes'
+    sysctl_file: '/etc/sysctl.d/20-sysctl.conf'
+  loop: "{{ logstash_kernel_parameters|flatten(levels=1) }}"
+
 - name: Creating logstash data folder.
   file:
     dest: '{{ logstash_path }}/logstash'
