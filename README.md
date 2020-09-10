@@ -112,7 +112,7 @@ There are some variables in vars/main.yml:
 - Ansible versions >= 2.8
 - Python >= 2.7.5
 - [NGinx](https://github.com/goldstrike77/ansible-role-linux-nginx.git)
-- [Kibana](https://github.com/goldstrike77/ansible-role-linux-kibana.git) 
+- [Kibana](https://github.com/goldstrike77/ansible-role-linux-kibana.git)
 - [Elasticsearch](https://github.com/goldstrike77/ansible-role-linux-elasticsearch.git)
 
 ## Example
@@ -120,11 +120,11 @@ There are some variables in vars/main.yml:
 ### Hosts inventory file
 See tests/inventory for an example.
 
-    [syslog:vars]
-    logstash_cluster='syslog'
-    logstash_version='7.7.1'
+    [siem:vars]
+    logstash_cluster='siem'
+    logstash_version='7.9.1'
 
-    [syslog]
+    [siem]
     node01 ansible_host='192.168.1.10'
     node02 ansible_host='192.168.1.11'
     node03 ansible_host='192.168.1.12'
@@ -136,15 +136,15 @@ Including an example of how to use your role (for instance, with variables passe
 - hosts: all
   roles:
      - role: ansible-role-linux-logstash
-       logstash_cluster='syslog'
+       logstash_cluster: 'siem'
 ```
 
 ### Combination of group vars and playbook
 You can also use the group_vars or the host_vars files for setting the variables needed for this role. File you should change: group_vars/all or host_vars/`group_name`.
 
 ```yaml
-logstash_version: '7.7.1'
-logstash_cluster: 'syslog'
+logstash_version: '7.9.1'
+logstash_cluster: 'siem'
 logstash_path: '/data'
 logstash_rotate_day: '180'
 logstash_heap_size: '2g'
@@ -162,8 +162,8 @@ logstash_elastic_path: '/data'
 logstash_elastic_node_type: 'default'
 logstash_kibana_port: '5601'
 logstash_kibana_proxy: false
-logstash_kibana_ngx_dept: false
-logstash_kibana_ngx_domain: 'syslog.example.com'
+logstash_kibana_ngx_dept: true
+logstash_kibana_ngx_domain: 'siem.example.com'
 logstash_kibana_ngx_port_http: '80'
 logstash_kibana_ngx_port_https: '443'
 logstash_kibana_ngx_site_path: '/data/nginx/site'
