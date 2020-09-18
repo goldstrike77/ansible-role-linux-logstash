@@ -12,6 +12,10 @@ input {
 
 filter {
   if "azure-nsg" in[tags]{
+    fingerprint {
+      target => "[@metadata][uuid]"
+      method => "UUID"
+    }
     split {
       field => "[records]"
     }
@@ -95,6 +99,7 @@ output {
       template_name => "azure-nsg"
       template_overwrite => true
       document_type => "_doc"
+      document_id => "%{[@metadata][uuid]}"
     }
   }
 }

@@ -6,6 +6,13 @@ input {
   }
 }
 
+filter {
+  fingerprint {
+    target => "[@metadata][uuid]"
+    method => "UUID"
+  }
+}
+
 output {
   if "syslog-beats" in[tags]{
     elasticsearch {
@@ -23,6 +30,7 @@ output {
       template_name => "syslog-beats"
       template_overwrite => true
       document_type => "_doc"
+      document_id => "%{[@metadata][uuid]}"
     }
   }
 }

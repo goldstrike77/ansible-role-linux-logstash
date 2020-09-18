@@ -6,7 +6,12 @@ input {
   }
 }
 
-filter {}
+filter {
+  fingerprint {
+    target => "[@metadata][uuid]"
+    method => "UUID"
+  }
+}
 
 output {
   if "syslog-rfc" in[tags]{
@@ -25,6 +30,7 @@ output {
       template_name => "syslog-rfc"
       template_overwrite => true
       document_type => "_doc"
+      document_id => "%{[@metadata][uuid]}"
     }
   }
 }

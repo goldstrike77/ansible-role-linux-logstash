@@ -7,6 +7,10 @@ input {
 
 filter {
   if "cisco-asa" in[tags]{
+    fingerprint {
+      target => "[@metadata][uuid]"
+      method => "UUID"
+    }
     grok {
       patterns_dir => ["/etc/logstash/patterns"]
       match => [
@@ -90,6 +94,7 @@ output {
       template_name => "cisco-asa"
       template_overwrite => true
       document_type => "_doc"
+      document_id => "%{[@metadata][uuid]}"
     }
   }
 }

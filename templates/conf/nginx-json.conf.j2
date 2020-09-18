@@ -16,6 +16,10 @@ filter {
       target => "geoip"
       database => "/etc/logstash/GeoLite2-City.mmdb"
     }
+    fingerprint {
+      target => "[@metadata][uuid]"
+      method => "UUID"
+    }
   }
 }
 
@@ -36,6 +40,7 @@ output {
       template_name => "nginx-json"
       template_overwrite => true
       document_type => "_doc"
+      document_id => "%{[@metadata][uuid]}"
     }
   }
 }
