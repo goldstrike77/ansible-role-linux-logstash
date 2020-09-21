@@ -6,7 +6,7 @@
     user: '{{ logstash_elastic_stack_user }}'
     password: '{{ logstash_elastic_stack_pass }}'
     validate_certs: 'no'
-    body: '{"policy":{"phases":{"hot":{"min_age":"0ms","actions":{"set_priority":{"priority":100}}},"delete":{"min_age":"180d","actions":{"delete":{}}}}}}'
+    body: '{"policy":{"phases":{"hot":{"min_age":"0ms","actions":{"set_priority":{"priority":100}}},"delete":{"min_age":"{{ logstash_rotate_day }}d","actions":{"delete":{}}}}}}'
     body_format: 'json'
     force_basic_auth: 'yes'
   environment:
