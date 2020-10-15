@@ -1,5 +1,5 @@
 ---
-- name: Check local consul client are accessible from current host
+- name: Check local consul client are accessible from current host.
   uri:
     url: '{{ consul_public_http_prot }}://{{ ansible_default_ipv4.address }}:{{ consul_public_http_port }}/v1/agent/service/register'
     method: 'GET'
@@ -11,7 +11,7 @@
   failed_when: false
   register: check_consul_local
 
-- name: Register service with an http health check
+- name: Register service with an health check.
   uri:
     url: '{{ consul_public_http_prot }}://{{ ansible_default_ipv4.address }}:{{ consul_public_http_port }}/v1/agent/service/register'
     method: 'PUT'
@@ -34,7 +34,7 @@
   changed_when: false
   failed_when: false
 
-- name: Check register client are accessible from current host
+- name: Check register client are accessible from current host.
   uri:
     url: '{{ consul_public_http_prot }}://{{ item }}:{{ consul_public_http_port }}/v1/agent/service/register'
     method: 'GET'
@@ -47,11 +47,11 @@
   failed_when: false
   register: check_consul_reg
 
-- name: Register exporter service with an http health check
+- name: Register exporter with an health check.
   uri:
     url: '{{ consul_public_http_prot }}://{{ item.client }}:{{ consul_public_http_port }}/v1/agent/service/register'
     method: 'PUT'
-    body: '{"tags":["prometheus","exporter"],"ID":"{{ inventory_hostname | upper }}_logstash_exporter","name":"logstash_exporter","address":"{{ ansible_default_ipv4.address }}","port":{{ logstash_port_arg.exporter }},"meta":{"metrics_path":"/metrics","instance":"{{ inventory_hostname | upper }}","group":"{{ group_names[-1] | upper }}","environment":"{{ environments | upper }}","datacenter": "{{ datacenter | lower }}","domain":"{{ domain | lower }}","cluster":"{{ logstash_cluster | upper }}"{% if tags is defined %},{{ tags | to_json | regex_replace("{") | regex_replace("}") }}{% endif %}},"checks":[{"http":"http://{{ ansible_default_ipv4.address }}:{{ logstash_port_arg.exporter }}/metrics","interval":"60s","tls_skip_verify":true,"method":"HEAD","timeout":"10s"}]}'
+    body: '{"tags":["prometheus","exporter"],"ID":"{{ inventory_hostname | upper }}_logstash_exporter","name":"logstash_exporter","address":"{{ ansible_default_ipv4.address }}","port":{{ logstash_port_arg.exporter }},"meta":{"application":"Pipeline","metrics_path":"/metrics","instance":"{{ inventory_hostname | upper }}","group":"{{ group_names[-1] | upper }}","environment":"{{ environments | upper }}","datacenter": "{{ datacenter | lower }}","domain":"{{ domain | lower }}","cluster":"{{ logstash_cluster | upper }}"{% if tags is defined %},{{ tags | to_json | regex_replace("{") | regex_replace("}") }}{% endif %}},"checks":[{"http":"http://{{ ansible_default_ipv4.address }}:{{ logstash_port_arg.exporter }}/metrics","interval":"60s","tls_skip_verify":true,"method":"HEAD","timeout":"10s"}]}'
     body_format: 'json'
     status_code: '200'
     headers:
