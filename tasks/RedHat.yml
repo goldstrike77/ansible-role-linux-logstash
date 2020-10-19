@@ -19,8 +19,8 @@
     disable_gpg_check: 'yes'
   register: yum_status
   until: yum_status is succeeded
-  retries: 3
-  delay: 5
+  retries: 5
+  delay: 2
 
 - name: Install the Logstash packages.
   yum:
@@ -32,5 +32,5 @@
     disable_gpg_check: 'yes'
   register: logstash_update
   until: logstash_update is succeeded
-  retries: 3
-  delay: 5
+  retries: 5
+  delay: 2
