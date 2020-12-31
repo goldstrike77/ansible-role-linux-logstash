@@ -1,7 +1,7 @@
 ---
 logstash_servers: "\
   {% set _logstash_servers = [] %}\
-  {% for host in groups[group_names[-1]] %}\
+  {% for host in groups[group_names[0]] %}\
     {% if logstash_cluster is defined %}\
       {% set _logstash_cluster = logstash_cluster | default('') %}\
       {% if ( _logstash_cluster == logstash_cluster ) %}\

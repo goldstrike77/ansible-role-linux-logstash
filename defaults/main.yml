@@ -1,7 +1,7 @@
 ---
 # General parameters #
 logstash_is_install: false # A boolean value, whether install the Logstash.
-logstash_version: '7.9.1' # Specify the Logstash version.
+logstash_version: '7.9.3' # Specify the Logstash version.
 logstash_cluster: 'siem' # Specifies the name of the cluster.
 logstash_path: '/data' # This directory is used to store server state.
 logstash_rotate_day: '180' # Specify the logs retention days.
@@ -66,9 +66,10 @@ logstash_arg:
   pipeline_batch_delay: '100' # How long to wait in milliseconds while polling for the next event.
 
 # Service Mesh #
-environments: 'Development' # Define the service environment.
+environments: 'prd' # Define the service environment.
 datacenter: 'dc01' # Define the DataCenter.
 domain: 'local' # Define the Domain.
+customer: 'demo' # Define the customer name.
 #tags: # Define the service custom label.
 #  subscription: 'default'
 #  owner: 'nobody'
