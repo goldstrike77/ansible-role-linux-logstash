@@ -30,8 +30,8 @@ logstash_kibana_ngx_port_http: '80' # NGinx HTTP listen port.
 logstash_kibana_ngx_port_https: '443' # NGinx HTTPs listen port.
 logstash_kibana_ngx_site_path: '{{ logstash_path }}/nginx/site' # Specify the NGinx site directory.
 logstash_kibana_ngx_logs_path: '{{ logstash_path }}/nginx/logs' # Specify the NGinx logs directory.
-logstash_kibana_plugins: # Specify Plug-in List.
-  - 'http://github.com/nsano-rururu/elastalert-kibana-plugin/releases/download/1.3.0/elastalert-kibana-plugin-1.3.0-{{ logstash_version }}.zip'
+#logstash_kibana_plugins: # Specify Plug-in List.
+#  - 'http://github.com/nsano-rururu/elastalert-kibana-plugin/releases/download/1.3.0/elastalert-kibana-plugin-1.3.0-{{ logstash_version }}.zip'
 
 # Inputs Variables #
 logstash_inputs_arg: # Define the global common inputs parameters.

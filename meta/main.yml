@@ -74,5 +74,5 @@ dependencies:
       kibana_ngx_port_https: '{{ logstash_kibana_ngx_port_https | default("443") }}'
       kibana_ngx_site_path: '{{ logstash_kibana_ngx_site_path | default("/data/nginx/site") }}'
       kibana_ngx_logs_path: '{{ logstash_kibana_ngx_logs_path | default("/data/nginx/logs") }}'
-      kibana_plugins: '{{ logstash_kibana_plugins }}'
+      kibana_plugins: '{{ logstash_kibana_plugins | default({}) }}'
     when: logstash_elastic_stack_dept | bool
