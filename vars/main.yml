@@ -18,7 +18,7 @@ logstash_pypi_url: 'pypi.tuna.tsinghua.edu.cn'
 
 logstash_python_dependent_packages:
   - 'elasticsearch-curator'
-  - 'pip'
+  - 'pip==20.3.4'
 
 logstash_kernel_parameters:
   - { variable: 'net.core.somaxconn', value: '65535' }
