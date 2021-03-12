@@ -1,35 +1,32 @@
 ---
 # General parameters #
-logstash_is_install: false # A boolean value, whether install the Logstash.
-logstash_version: '7.9.3' # Specify the Logstash version.
+logstash_is_install: false # A boolean to determine whether or not to install the LogStash.
+logstash_version: '7.10.2' # Specify the Logstash version.
 logstash_cluster: 'siem' # Specifies the name of the cluster.
 logstash_path: '/data' # This directory is used to store server state.
 logstash_rotate_day: '180' # Specify the logs retention days.
-logstash_heap_size: '1g' # Specify the maximum memory allocation pool for a Java virtual machine.
+logstash_heap_size: '2g' # Specify the maximum memory allocation pool for a Java virtual machine.
 
 # Role dependencies #
-logstash_elastic_stack_dept: true # A boolean value, whether Elastic Stack components use the same environment.
+logstash_elastic_stack_dept: true # A boolean to determine whether or not use Elastic Stack components as same environment.
 
 # Elastic Stack parameters #
-logstash_elastic_stack_auth: true # A boolean value, Enable or Disable authentication.
-logstash_elastic_stack_https: true # A boolean value, whether Encrypting HTTP client communications.
+logstash_elastic_stack_auth: true # A boolean to determine whether or not enable authentication.
+logstash_elastic_stack_https: true # A boolean to determine whether or not Encrypting HTTP client communications.
 logstash_elastic_stack_user: 'elastic' # Authorization user name, do not modify it.
 logstash_elastic_stack_pass: 'changeme' # Authorization user password.
-logstash_elastic_stack_version: '{{ logstash_version }}' # Specify the Elastic Stack version.
-logstash_elastic_hosts: 'localhost' # List of Elasticsearch hosts Logstash should connect to.
+logstash_elastic_hosts: # List of Elasticsearch hosts Logstash should connect to.
+  - 'localhost'
 logstash_elastic_port: '9200' # Elasticsearch REST port.
-logstash_elastic_heap_size: '2g' # Specify the maximum memory allocation pool for a Java virtual machine.
+logstash_elastic_heap_size: '4g' # Specify the maximum memory allocation pool for a Java virtual machine.
 logstash_elastic_memory_lock: false # A boolean value, whether lock the process address space into memory on startup.
-logstash_elastic_path: '{{ logstash_path }}' # Specify the ElasticSearch data directory.
 logstash_elastic_node_type: 'default' # Type of nodes: default, master, data, ingest and coordinat.
 logstash_kibana_port: '5601' # Kibana server port.
-logstash_kibana_proxy: false # Whether running behind a HaProxy.
-logstash_kibana_ngx_dept: true # Whether proxy web interface and API traffic using NGinx.
+logstash_kibana_proxy: false # A boolean to determine whether or no running behind a Proxy.
+logstash_kibana_ngx_dept: true # A boolean to determine whether or not proxy web interface and API traffic using NGinx.
 logstash_kibana_ngx_domain: 'siem.example.com' # Defines domain name.
 logstash_kibana_ngx_port_http: '80' # NGinx HTTP listen port.
 logstash_kibana_ngx_port_https: '443' # NGinx HTTPs listen port.
-logstash_kibana_ngx_site_path: '{{ logstash_path }}/nginx/site' # Specify the NGinx site directory.
-logstash_kibana_ngx_logs_path: '{{ logstash_path }}/nginx/logs' # Specify the NGinx logs directory.
 #logstash_kibana_plugins: # Specify Plug-in List.
 #  - 'http://github.com/nsano-rururu/elastalert-kibana-plugin/releases/download/1.3.0/elastalert-kibana-plugin-1.3.0-{{ logstash_version }}.zip'
 
@@ -38,18 +35,18 @@ logstash_inputs_arg: # Define the global common inputs parameters.
 #  - name: 'cisco-asa'
 #    protocol: 'udp'
 #    port: '10514'
-  - name: 'syslog-rfc'
-    protocol: 'syslog'
-    port: '1514'
-  - name: 'syslog-beats'
-    protocol: 'beats'
-    port: '5044'
+#  - name: 'syslog-rfc'
+#    protocol: 'syslog'
+#    port: '1514'
+#  - name: 'syslog-beats'
+#    protocol: 'beats'
+#    port: '5044'
   - name: 'syslog-gelf'
     protocol: 'udp'
     port: '12201'
-  - name: 'nginx-json'
-    protocol: 'syslog'
-    port: '12301'
+#  - name: 'nginx-json'
+#    protocol: 'syslog'
+#    port: '12301'
 #  - name: 'azure-nsg'
 #    sa_name: 'xxxxx'
 #    sa_access_key: 'xxxxx'

@@ -2,9 +2,10 @@
 logstash_repo_name: 'elasticsearch'
 logstash_artifacts_repo_url: "http://mirrors.tuna.tsinghua.edu.cn/elasticstack/{{ logstash_version.split('.')[0] }}.x/yum/"
 logstash_dependent_packages:
-  - 'python-pip'
-  - 'java-1.8.0-openjdk-headless'
-  - 'libselinux-utils'
-  - 'policycoreutils-python'
+  - { package: 'python-pip' }
+  - { package: 'libselinux-utils' }
+  - { package: 'policycoreutils-python' }
+  - { package: 'java-1.8.0-openjdk-headless', create: '{{ logstash_version.split(".")[0] != "6" }}' }
+
 logstash_packages:
   - 'logstash-{{ logstash_version }}-1'

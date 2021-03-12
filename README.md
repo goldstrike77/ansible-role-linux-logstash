@@ -25,6 +25,7 @@ __Table of Contents__
 - [License](#license)
 - [Author Information](#author-information)
 - [Contributors](#Contributors)
+- [Donations](#Donations)
 
 ## Overview
 Logstash is a free and open server-side data processing pipeline, Is the “L” in the ELK Stack - the world’s most popular log analysis platform and is responsible for aggregating data from different sources, processing it, and sending it down the pipeline, usually to be directly indexed in Elasticsearch. Logstash can pull from almost any data source using input plugins, apply a wide variety of data transformations and enhancements using filter plugins, and ship the data to a large number of destinations using output plugins. The role Logstash plays in the stack, therefore, is critical — it allows you to filter, massage, and shape your data so that it’s easier to work with.
@@ -56,28 +57,24 @@ There are some variables in defaults/main.yml which can (Or needs to) be overrid
 * `logstash_heap_size`: Specify the maximum memory allocation pool for a Java virtual machine.
 
 ##### Role dependencies
-* `logstash_elastic_stack_dept`: A boolean value, whether Elastic Stack components use the same environment.
+* `logstash_elastic_stack_dept`: A boolean to determine whether or not use Elastic Stack components as same environment.
 
 ##### Elastic Stack parameters
-* `logstash_elastic_stack_auth`: A boolean value, Enable or Disable authentication.
-* `logstash_elastic_stack_https`: A boolean value, whether Encrypting HTTP client communications.
+* `logstash_elastic_stack_auth`: A boolean to determine whether or not enable authentication.
+* `logstash_elastic_stack_https`: A boolean to determine whether or not Encrypting HTTP client communications.
 * `logstash_elastic_stack_user`: Authorization user name, do not modify it.
 * `logstash_elastic_stack_pass`: Authorization user password.
-* `logstash_elastic_stack_version`: Specify the Elastic Stack version.
 * `logstash_elastic_hosts`: List of Elasticsearch hosts Logstash should connect to.
 * `logstash_elastic_port`: Elasticsearch REST port.
 * `logstash_elastic_heap_size`: Specify the maximum memory allocation pool for a Java virtual machine.
 * `logstash_elastic_memory_lock`: A boolean value, whether lock the process address space into memory on startup.
-* `logstash_elastic_path`: Specify the ElasticSearch data directory.
 * `logstash_elastic_node_type`: Type of nodes`: default, master, data, ingest and coordinat.
 * `logstash_kibana_port`: Kibana server port.
-* `logstash_kibana_proxy`: Whether running behind a HaProxy.
-* `logstash_kibana_ngx_dept`: Whether proxy web interface and API traffic using NGinx.
+* `logstash_kibana_proxy`: A boolean to determine whether or no running behind a Proxy.
+* `logstash_kibana_ngx_dept`: A boolean to determine whether or not proxy web interface and API traffic using NGinx.
 * `logstash_kibana_ngx_domain`: Defines domain name.
 * `logstash_kibana_ngx_port_http`: NGinx HTTP listen port.
 * `logstash_kibana_ngx_port_https`: NGinx HTTPs listen port.
-* `logstash_kibana_ngx_site_path`: Specify the NGinx site directory.
-* `logstash_kibana_ngx_logs_path`: Specify the NGinx logs directory.
 
 ##### Inputs Variables
 * `logstash_inputs_arg`: Define the global common inputs parameters.
@@ -123,7 +120,7 @@ See tests/inventory for an example.
 
     [siem:vars]
     logstash_cluster='siem'
-    logstash_version='7.9.3'
+    logstash_version='7.10.2'
 
     [siem]
     node01 ansible_host='192.168.1.10'
@@ -144,7 +141,7 @@ Including an example of how to use your role (for instance, with variables passe
 You can also use the group_vars or the host_vars files for setting the variables needed for this role. File you should change: group_vars/all or host_vars/`group_name`.
 
 ```yaml
-logstash_version: '7.9.3'
+logstash_version: '7.10.2'
 logstash_cluster: 'siem'
 logstash_path: '/data'
 logstash_rotate_day: '180'
@@ -154,12 +151,11 @@ logstash_elastic_stack_auth: true
 logstash_elastic_stack_https: true
 logstash_elastic_stack_user: 'elastic'
 logstash_elastic_stack_pass: 'changeme'
-logstash_elastic_stack_version: '{{ logstash_version }}'
-logstash_elastic_hosts: 'localhost'
+logstash_elastic_hosts:
+  - 'localhost'
 logstash_elastic_port: '9200'
 logstash_elastic_heap_size: '1g'
 logstash_elastic_memory_lock: false
-logstash_elastic_path: '/data'
 logstash_elastic_node_type: 'default'
 logstash_kibana_port: '5601'
 logstash_kibana_proxy: false
@@ -167,8 +163,6 @@ logstash_kibana_ngx_dept: true
 logstash_kibana_ngx_domain: 'siem.example.com'
 logstash_kibana_ngx_port_http: '80'
 logstash_kibana_ngx_port_https: '443'
-logstash_kibana_ngx_site_path: '/data/nginx/site'
-logstash_kibana_ngx_logs_path: '/data/nginx/logs'
 logstash_inputs_arg:
   - name: 'cisco-asa'
     protocol: 'udp'
@@ -212,3 +206,8 @@ Please send your suggestions to make this role better.
 
 ## Contributors
 Special thanks to the [Connext Information Technology](http://www.connext.com.cn) for their contributions to this role.
+
+## Donations
+Please donate to the following monero address.
+
+    46CHVMbb6wQV2PJYEbahb353SYGqXhcdFQVEWdCnHb6JaR5125h3kNQ6bcqLye5G7UF7qz6xL9qHLDSAY3baagfmLZABz75

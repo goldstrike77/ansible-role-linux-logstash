@@ -16,7 +16,7 @@
 - name: Include input tasks.
   include: 'input.yml'
 
-- name: Reload the Logstash service
+- name: Reload the Logstash service.
   shell: echo ''
   notify: 'Ensure logstash service is enabled'
   when: logstash_update is changed or logstash_inputs_conf_update is changed or logstash_inputs_template_update is changed or logstash_inputs_pattern_update is changed or logstash_jvm is changed or logstash_conf is changed
