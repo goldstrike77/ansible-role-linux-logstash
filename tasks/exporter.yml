@@ -33,4 +33,3 @@
     state: 'restarted'
     daemon_reload: 'yes'
   when: logstash_exporter_update is changed or logstash_exporter_config is changed or logstash_systemd_update is changed
-

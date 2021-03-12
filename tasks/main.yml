@@ -38,10 +38,10 @@
   include: 'curator.yml'
   when:
     - logstash_servers[0] in ansible_default_ipv4.address
-    - logstash_elastic_stack_version.split('.')[0] == '5'
+    - logstash_version.split('.')[0] == '5'
 
 - name: Include Index Lifecycle Policies tasks
   include: 'ilm.yml'
   when:
     - logstash_servers[0] in ansible_default_ipv4.address
-    - logstash_elastic_stack_version.split('.')[0] != '5'
+    - logstash_version.split('.')[0] != '5'

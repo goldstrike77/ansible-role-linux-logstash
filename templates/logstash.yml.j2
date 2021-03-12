@@ -3,7 +3,7 @@ actions:
   1:
     action: delete_indices
     description: >-
-      Delete indices older than {{ logstash_rotate_day }} days (based on index name), for monitoring-es-{{ logstash_elastic_stack_version.split(".")[0] }}-
+      Delete indices older than {{ logstash_rotate_day }} days (based on index name), for monitoring-es-{{ logstash_version.split(".")[0] }}-
       prefixed indices. Ignore the error if the filter does not result in an
       actionable list of indices (ignore_empty_list) and exit cleanly.
     options:
@@ -12,7 +12,7 @@ actions:
     filters:
     - filtertype: pattern
       kind: prefix
-      value: monitoring-es-{{ logstash_elastic_stack_version.split(".")[0] }}-*
+      value: monitoring-es-{{ logstash_version.split(".")[0] }}-*
     - filtertype: age
       source: name
       direction: older
@@ -22,7 +22,7 @@ actions:
   2:
     action: delete_indices
     description: >-
-      Delete indices older than {{ logstash_rotate_day }} days (based on index name), for monitoring-kibana-{{ logstash_elastic_stack_version.split(".")[0] }}-
+      Delete indices older than {{ logstash_rotate_day }} days (based on index name), for monitoring-kibana-{{ logstash_version.split(".")[0] }}-
       prefixed indices. Ignore the error if the filter does not result in an
       actionable list of indices (ignore_empty_list) and exit cleanly.
     options:
@@ -31,7 +31,7 @@ actions:
     filters:
     - filtertype: pattern
       kind: prefix
-      value: monitoring-kibana-{{ logstash_elastic_stack_version.split(".")[0] }}-*
+      value: monitoring-kibana-{{ logstash_version.split(".")[0] }}-*
     - filtertype: age
       source: name
       direction: older

@@ -5,7 +5,7 @@ logstash_dependent_packages:
   - { package: 'python-pip' }
   - { package: 'libselinux-utils' }
   - { package: 'policycoreutils-python' }
-  - { package: 'java-1.8.0-openjdk-headless', create: '{{ logstash_version.split(".")[0] != "6" }}' }
+  - { package: 'java-1.8.0-openjdk-headless', create: '{{ logstash_version.split(".")[0] == "6" }}' }
 
 logstash_packages:
   - 'logstash-{{ logstash_version }}-1'
