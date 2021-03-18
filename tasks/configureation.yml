@@ -72,6 +72,7 @@
     - { regexp: '^pipeline.workers', line: 'pipeline.workers: {{ logstash_arg.pipeline_workers }}' }
     - { regexp: '^pipeline.batch.size', line: 'pipeline.batch.size: {{ logstash_arg.pipeline_batch_size }}' }
     - { regexp: '^pipeline.batch.delay', line: 'pipeline.batch.delay: {{ logstash_arg.pipeline_batch_delay }}' }
+    - { regexp: '^http.host', line: 'http.host: {{ ansible_default_ipv4.address }}' }
     - { regexp: '^http.port', line: 'http.port: {{ logstash_port_arg.api }}' }
   register: logstash_conf
 

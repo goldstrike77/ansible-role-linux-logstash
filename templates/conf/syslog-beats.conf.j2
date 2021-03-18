@@ -22,7 +22,7 @@ output {
 
       user => "{{ logstash_elastic_stack_user }}"
       password => "{{ logstash_elastic_stack_pass }}"
-      index => "syslog-beats-%{+YYYY.MM.dd}"
+      index => "logstash-syslog-beats-%{+YYYY.MM.dd}"
 {% if logstash_version.split('.')[0] != '5' %}
       ilm_enabled => true
 {% endif %}
