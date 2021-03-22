@@ -86,12 +86,12 @@ output {
 
       user => "{{ logstash_elastic_stack_user }}"
       password => "{{ logstash_elastic_stack_pass }}"
-      index => "logstash-cisco-asa-%{+YYYY.MM.dd}"
+      index => "cisco-asa-%{+YYYY.MM.dd}"
 {% if logstash_version.split('.')[0] != '5' %}
       ilm_enabled => true
 {% endif %}
       template => "/etc/logstash/template/elastic-cisco-asa-template.json"
-      template_name => "logstash-cisco-asa"
+      template_name => "cisco-asa"
       template_overwrite => true
       document_type => "_doc"
       document_id => "%{[@metadata][uuid]}"

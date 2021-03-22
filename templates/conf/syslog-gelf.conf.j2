@@ -23,12 +23,12 @@ output {
 
       user => "{{ logstash_elastic_stack_user }}"
       password => "{{ logstash_elastic_stack_pass }}"
-      index => "logstash-syslog-gelf-%{+YYYY.MM.dd}"
+      index => "syslog-gelf-%{+YYYY.MM.dd}"
 {% if logstash_version.split('.')[0] != '5' %}
       ilm_enabled => true
 {% endif %}
       template => "/etc/logstash/template/elastic-syslog-gelf-template.json"
-      template_name => "logstash-syslog-gelf"
+      template_name => "syslog-gelf"
       template_overwrite => true
       document_type => "_doc"
       document_id => "%{[@metadata][uuid]}"
