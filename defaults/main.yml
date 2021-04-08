@@ -1,7 +1,7 @@
 ---
 # General parameters #
 logstash_is_install: false # A boolean to determine whether or not to install the LogStash.
-logstash_version: '7.10.2' # Specify the Logstash version.
+logstash_version: '7.11.2' # Specify the Logstash version.
 logstash_cluster: 'siem' # Specifies the name of the cluster.
 logstash_path: '/data' # This directory is used to store server state.
 logstash_rotate_day: '180' # Specify the logs retention days.

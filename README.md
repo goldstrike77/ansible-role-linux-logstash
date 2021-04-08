@@ -120,7 +120,7 @@ See tests/inventory for an example.
 
     [siem:vars]
     logstash_cluster='siem'
-    logstash_version='7.10.2'
+    logstash_version='7.11.2'
 
     [siem]
     node01 ansible_host='192.168.1.10'
@@ -141,7 +141,7 @@ Including an example of how to use your role (for instance, with variables passe
 You can also use the group_vars or the host_vars files for setting the variables needed for this role. File you should change: group_vars/all or host_vars/`group_name`.
 
 ```yaml
-logstash_version: '7.10.2'
+logstash_version: '7.11.2'
 logstash_cluster: 'siem'
 logstash_path: '/data'
 logstash_rotate_day: '180'
