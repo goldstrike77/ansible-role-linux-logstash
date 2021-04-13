@@ -11,8 +11,8 @@ logstash_servers: "\
   {% endfor %}\
   {{ _logstash_servers }}"
 
-#logstash_plugins:
-#  - 'logstash-input-azureblob'
+logstash_plugins:
+  - 'logstash-input-azureblob'
 
 logstash_pypi_url: 'pypi.tuna.tsinghua.edu.cn'
 

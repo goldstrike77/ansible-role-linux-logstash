@@ -1,20 +1,30 @@
 input {
-  {{ item.protocol }} {
-    port => {{ item.port }}
-    codec => plain
-    tags => ["syslog-rfc"]
+  azureblob {
+    tags => ["azure-agw-firewall"]
+    storage_account_name => "{{ item.sa_name }}"
+    storage_access_key => "{{ item.sa_access_key }}"
+    container => "{{ item.sa_container }}"
+    codec => "json"
   }
 }
 
 filter {
-  fingerprint {
-    target => "[@metadata][uuid]"
-    method => "UUID"
+  if "azure-agw-firewall" in[tags]{
+    fingerprint {
+      target => "[@metadata][uuid]"
+      method => "UUID"
+    }
+    date {
+      match => ["unixtimestamp", "UNIX"]
+    }
   }
 }
 
 output {
-  if "syslog-rfc" in[tags]{
+  stdout {
+    codec => rubydebug
+  }
+  if "azure-agw-firewall" in[tags]{
     elasticsearch {
       hosts => ['{{ logstash_elastic_hosts | list | join(":" + logstash_elastic_port + "', '") }}:{{ logstash_elastic_port }}']
       ssl_certificate_verification => false
@@ -22,12 +32,12 @@ output {
 
       user => "{{ logstash_elastic_stack_user }}"
       password => "{{ logstash_elastic_stack_pass }}"
-      index => "syslog-rfc-%{+YYYY.MM.dd}"
+      index => "azure-agw-firewall-%{+YYYY.MM.dd}"
 {% if logstash_version.split('.')[0] != '5' %}
       ilm_enabled => true
 {% endif %}
-      template => "/etc/logstash/template/elastic-syslog-rfc-template.json"
-      template_name => "syslog-rfc"
+      template => "/etc/logstash/template/elastic-azure-agw-firewall-template.json"
+      template_name => "azure-agw-firewall"
       template_overwrite => true
       document_type => "_doc"
       document_id => "%{[@metadata][uuid]}"
