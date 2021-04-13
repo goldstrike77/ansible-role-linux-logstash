@@ -14,6 +14,11 @@ filter {
       target => "[@metadata][uuid]"
       method => "UUID"
     }
+    geoip {
+      source => "[properties][clientIP]"
+      target => "geoip"
+      database => "/etc/logstash/GeoLite2-City.mmdb"
+    }
     date {
       match => ["unixtimestamp", "UNIX"]
     }
