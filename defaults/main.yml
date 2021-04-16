@@ -74,6 +74,7 @@ logstash_arg:
   pipeline_workers: '{% if ansible_processor_vcpus > 2 %}{{ (ansible_processor_vcpus / 2) | int }}{% else %}1{% endif %}' # The number of workers.
   pipeline_batch_size: '{{ ansible_processor_vcpus * 250 }}' # How many events to retrieve from inputs before sending to workers.
   pipeline_batch_delay: '100' # How long to wait in milliseconds while polling for the next event.
+  log_level: 'info' # Defines the log level, Valid options are fatal, error, warn, info, debug and trace.
 #logstash_plugins:
 #  - 'logstash-input-azure_blob_storage'
 
