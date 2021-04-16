@@ -75,7 +75,7 @@ logstash_arg:
   pipeline_batch_size: '{{ ansible_processor_vcpus * 250 }}' # How many events to retrieve from inputs before sending to workers.
   pipeline_batch_delay: '100' # How long to wait in milliseconds while polling for the next event.
 #logstash_plugins:
-#  - 'logstash-input-azureblob'
+#  - 'logstash-input-azure_blob_storage'
 
 # Service Mesh #
 environments: 'prd' # Define the service environment.
