@@ -51,14 +51,17 @@ logstash_inputs_arg: # Define the global common inputs parameters.
 #    sa_name: 'xxxxx'
 #    sa_access_key: 'xxxxx'
 #    sa_container: 'xxxxx'
+#    endpoint: 'core.chinacloudapi.cn'
 #  - name: 'azure-agw-access'
 #    sa_name: 'xxxxx'
 #    sa_access_key: 'xxxxx'
 #    sa_container: 'insights-logs-applicationgatewayaccesslog'
+#    endpoint: 'core.chinacloudapi.cn'
 #  - name: 'azure-agw-firewall'
 #    sa_name: 'xxxxx'
 #    sa_access_key: 'xxxxx'
 #    sa_container: 'insights-logs-applicationgatewayfirewalllog'
+#    endpoint: 'core.chinacloudapi.cn'
 
 # Listen port #
 logstash_port_arg:

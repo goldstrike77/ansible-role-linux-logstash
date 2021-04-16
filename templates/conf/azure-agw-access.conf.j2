@@ -1,15 +1,22 @@
 input {
-  azureblob {
+  azure_blob_storage {
     tags => ["azure-agw-access"]
-    storage_account_name => "{{ item.sa_name }}"
-    storage_access_key => "{{ item.sa_access_key }}"
+    storageaccount => "{{ item.sa_name }}"
+    access_key => "{{ item.sa_access_key }}"
     container => "{{ item.sa_container }}"
-    codec => "json"
+    codec => "line"
+    interval => 30
+    dns_suffix => "{{ item.endpoint }}"
   }
 }
 
 filter {
   if "azure-agw-access" in[tags]{
+    json {
+      source => "message"
+      remove_field => ["message"]
+      skip_on_invalid_json => true
+    }
     fingerprint {
       target => "[@metadata][uuid]"
       method => "UUID"
