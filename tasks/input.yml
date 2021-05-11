@@ -8,7 +8,7 @@
     group: 'logstash'
     mode: '0640'
   loop: '{{ logstash_inputs_arg }}'
-  register: logstash_inputs_conf_update
+  notify: 'Ensure logstash service is enabled.'
 
 - name: Logstash input template file transfer.
   template:
@@ -21,7 +21,7 @@
   loop: '{{ logstash_inputs_arg }}'
   loop_control:
     index_var: index
-  register: logstash_inputs_template_update
+  notify: 'Ensure logstash service is enabled.'
 
 - name: Logstash input pattern file transfer.
   copy:
@@ -31,4 +31,4 @@
     group: 'logstash'
     mode: '0640'
   loop: '{{ logstash_inputs_arg }}'
-  register: logstash_inputs_pattern_update
+  notify: 'Ensure logstash service is enabled.'

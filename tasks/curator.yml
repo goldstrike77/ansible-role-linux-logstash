@@ -8,7 +8,7 @@
   register: logstash_python_status
   until: logstash_python_status is succeeded
   retries: 5
-  delay: 5
+  delay: 2
 
 - name: Creating Curator folder.
   file:

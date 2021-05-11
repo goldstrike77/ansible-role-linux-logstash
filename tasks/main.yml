@@ -16,31 +16,26 @@
 - name: Include input tasks.
   include: 'input.yml'
 
-- name: Reload the Logstash service.
-  shell: echo ''
-  notify: 'Ensure logstash service is enabled'
-  when: logstash_update is changed or logstash_inputs_conf_update is changed or logstash_inputs_template_update is changed or logstash_inputs_pattern_update is changed or logstash_jvm is changed or logstash_conf is changed
-
-- name: Force the handler to run immediately
-  meta: flush_handlers
-
-- name: Include prometheus exporter tasks
+- name: Include prometheus exporter tasks.
   include: 'exporter.yml'
   when: exporter_is_install | bool
 
-- name: Registered with HashiCorp Consul
+- name: Force the handler to run immediately.
+  meta: flush_handlers
+
+- name: Registered with HashiCorp Consul.
   include: 'register.yml'
   when:
     - exporter_is_install | bool
     - consul_public_register | bool
 
-- name: Include Curator tasks
+- name: Include Curator tasks.
   include: 'curator.yml'
   when:
     - logstash_servers[0] in ansible_default_ipv4.address
     - logstash_version.split('.')[0] == '5'
 
-- name: Include Index Lifecycle Policies tasks
+- name: Include Index Lifecycle Policies tasks.
   include: 'ilm.yml'
   when:
     - logstash_servers[0] in ansible_default_ipv4.address

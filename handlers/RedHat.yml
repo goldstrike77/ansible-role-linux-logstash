@@ -1,8 +1,14 @@
 ---
-- name: Enable logstash service
+- name: Ensure logstash service is enabled.
   systemd:
     name: 'logstash.service'
     enabled: 'yes'
     state: 'restarted'
     daemon_reload: 'yes'
-  listen: Ensure logstash service is enabled
+
+- name: Ensure logstash exporter service is enabled.
+  systemd:
+    name: 'logstash_exporter.service'
+    enabled: 'yes'
+    state: 'restarted'
+    daemon_reload: 'yes'

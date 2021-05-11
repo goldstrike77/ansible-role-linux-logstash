@@ -52,7 +52,7 @@ There are some variables in defaults/main.yml which can (Or needs to) be overrid
 ##### General parameters
 * `logstash_version`: Specify the Logstash version.
 * `logstash_cluster`: Specifies the name of the cluster.
-* `logstash_path`: This directory is used to store server state.
+* `logstash_path`: The directory that Logstash and its plugins use for any persistent needs.
 * `logstash_rotate_day`: Specify the logs retention days.
 * `logstash_heap_size`: Specify the maximum memory allocation pool for a Java virtual machine.
 

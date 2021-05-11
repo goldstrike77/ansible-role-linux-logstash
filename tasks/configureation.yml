@@ -56,10 +56,10 @@
     dest: '/etc/logstash/jvm.options'
     regexp: '{{ item.regexp }}'
     line: '{{ item.line }}'
-  with_items:
+  loop:
     - { regexp: '^-Xms', line: '-Xms{{ logstash_heap_size }}' }
     - { regexp: '^-Xmx', line: '-Xmx{{ logstash_heap_size }}' }
-  register: logstash_jvm
+  notify: 'Ensure logstash service is enabled.'
 
 - name: Logstash configuration.
   lineinfile:
@@ -67,7 +67,7 @@
     dest: '/etc/logstash/logstash.yml'
     regexp: '{{ item.regexp }}'
     line: '{{ item.line }}'
-  with_items:
+  loop:
     - { regexp: '^path.data', line: 'path.data: {{ logstash_path }}/logstash' }
     - { regexp: '^pipeline.workers', line: 'pipeline.workers: {{ logstash_arg.pipeline_workers }}' }
     - { regexp: '^pipeline.batch.size', line: 'pipeline.batch.size: {{ logstash_arg.pipeline_batch_size }}' }
@@ -75,7 +75,7 @@
     - { regexp: '^http.host', line: 'http.host: {{ ansible_default_ipv4.address }}' }
     - { regexp: '^http.port', line: 'http.port: {{ logstash_port_arg.api }}' }
     - { regexp: '^log.level', line: 'log.level: {{ logstash_port_arg.log_level }}' }
-  register: logstash_conf
+  notify: 'Ensure logstash service is enabled.'
 
 - name: Install Logstash input plugin.
   logstash_plugin:
