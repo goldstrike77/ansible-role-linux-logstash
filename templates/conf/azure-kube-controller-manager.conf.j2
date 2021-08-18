@@ -1,9 +1,9 @@
 input {
   azure_blob_storage {
-    tags => ["azure-mysql-audit"]
+    tags => ["azure-kube-controller-manager"]
     storageaccount => "{{ logstash_inputs_arg.azure.sa_name }}"
     access_key => "{{ logstash_inputs_arg.azure.sa_access_key }}"
-    container => "insights-logs-mysqlauditlogs"
+    container => "insights-logs-kube-controller-manager"
     codec => "line"
     interval => {{ logstash_inputs_arg.azure.interval }}
     dns_suffix => "{{ logstash_inputs_arg.azure.endpoint }}"
@@ -11,7 +11,7 @@ input {
 }
 
 filter {
-  if "azure-mysql-audit" in[tags]{
+  if "azure-kube-controller-manager" in[tags]{
     json {
       source => "message"
       remove_field => ["message"]
@@ -20,11 +20,6 @@ filter {
     fingerprint {
       target => "[@metadata][uuid]"
       method => "UUID"
-    }
-    geoip {
-      source => "[properties][ip]"
-      target => "geoip"
-      database => "/etc/logstash/GeoLite2-City.mmdb"
     }
     date {
       match => ["unixtimestamp", "UNIX"]
@@ -36,7 +31,7 @@ output {
   stdout {
     codec => rubydebug
   }
-  if "azure-mysql-audit" in[tags]{
+  if "azure-kube-controller-manager" in[tags]{
     elasticsearch {
       hosts => ['{{ logstash_elastic_hosts | list | join(":" + logstash_elastic_port + "', '") }}:{{ logstash_elastic_port }}']
       ssl_certificate_verification => false
@@ -44,12 +39,12 @@ output {
 
       user => "{{ logstash_elastic_stack_user }}"
       password => "{{ logstash_elastic_stack_pass }}"
-      index => "azure-mysql-audit-%{+YYYY.MM.dd}"
+      index => "azure-kube-controller-manager-%{+YYYY.MM.dd}"
 {% if logstash_version.split('.')[0] != '5' %}
       ilm_enabled => true
 {% endif %}
-      template => "/etc/logstash/template/elastic-azure-mysql-audit-template.json"
-      template_name => "azure-mysql-audit"
+      template => "/etc/logstash/template/elastic-azure-kube-controller-manager-template.json"
+      template_name => "azure-kube-controller-manager"
       template_overwrite => true
       document_type => "_doc"
       document_id => "%{[@metadata][uuid]}"

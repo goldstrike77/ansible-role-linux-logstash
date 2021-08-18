@@ -1,0 +1,17 @@
+{
+  "order": {{ index }},
+  "template": "azure-kube-audit-admin*",
+  "index_patterns": [
+    "azure-kube-audit-admin-*"
+  ],
+  "settings": {
+    "index": {
+      "refresh_interval": "{{ logstash_arg.index_refresh_interval }}",
+{% if logstash_version.split('.')[0] != '5' %}
+      "lifecycle.name": "ilm-history-{{ logstash_rotate_day }}d-policy",
+{% endif %}
+      "number_of_shards": "{{ logstash_elastic_hosts | length }}",
+      "number_of_replicas": "{% if logstash_elastic_hosts | length > 1 %}1{% else %}0{% endif %}"
+    }
+  }
+}

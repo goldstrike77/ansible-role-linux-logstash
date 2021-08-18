@@ -1,34 +1,66 @@
 ---
-- name: Logstash input configuration file transfer.
-  template:
-    src: 'conf/{{ item.name }}.conf.j2'
-    dest: '/etc/logstash/conf.d/{{ item.name }}.conf'
-    backup: 'yes'
-    owner: 'logstash'
-    group: 'logstash'
-    mode: '0640'
-  loop: '{{ logstash_inputs_arg }}'
+- name: Logstash common input operations.
+  block:
+    - name: Logstash input configuration file transfer.
+      template:
+        src: 'conf/{{ item.name }}.conf.j2'
+        dest: '/etc/logstash/conf.d/{{ item.name }}.conf'
+        backup: 'yes'
+        owner: 'logstash'
+        group: 'logstash'
+        mode: '0640'
+      loop: '{{ logstash_inputs_arg.common }}'
+    - name: Logstash input template file transfer.
+      template:
+        src: 'template/elastic-{{ item.name }}-template.json.j2'
+        dest: '/etc/logstash/template/elastic-{{ item.name }}-template.json'
+        backup: 'yes'
+        owner: 'logstash'
+        group: 'logstash'
+        mode: '0640'
+      loop: '{{ logstash_inputs_arg.common }}'
+      loop_control:
+        index_var: index
+    - name: Logstash input pattern file transfer.
+      copy:
+        src: 'pattern/esguardian-{{ item.name }}'
+        dest: '/etc/logstash/patterns/esguardian-{{ item.name }}'
+        owner: 'logstash'
+        group: 'logstash'
+        mode: '0640'
+      loop: '{{ logstash_inputs_arg.common }}'
+  when: logstash_inputs_arg.common is defined
   notify: 'Ensure logstash service is enabled.'
 
-- name: Logstash input template file transfer.
-  template:
-    src: 'template/elastic-{{ item.name }}-template.json.j2'
-    dest: '/etc/logstash/template/elastic-{{ item.name }}-template.json'
-    backup: 'yes'
-    owner: 'logstash'
-    group: 'logstash'
-    mode: '0640'
-  loop: '{{ logstash_inputs_arg }}'
-  loop_control:
-    index_var: index
-  notify: 'Ensure logstash service is enabled.'
-
-- name: Logstash input pattern file transfer.
-  copy:
-    src: 'pattern/esguardian-{{ item.name }}'
-    dest: '/etc/logstash/patterns/esguardian-{{ item.name }}'
-    owner: 'logstash'
-    group: 'logstash'
-    mode: '0640'
-  loop: '{{ logstash_inputs_arg }}'
+- name: Logstash Azure input operations.
+  block:
+    - name: Logstash input configuration file transfer.
+      template:
+        src: 'conf/{{ item }}.conf.j2'
+        dest: '/etc/logstash/conf.d/{{ item }}.conf'
+        backup: 'yes'
+        owner: 'logstash'
+        group: 'logstash'
+        mode: '0640'
+      loop: '{{ logstash_inputs_arg.azure.resources }}'
+    - name: Logstash input template file transfer.
+      template:
+        src: 'template/elastic-{{ item }}-template.json.j2'
+        dest: '/etc/logstash/template/elastic-{{ item }}-template.json'
+        backup: 'yes'
+        owner: 'logstash'
+        group: 'logstash'
+        mode: '0640'
+      loop: '{{ logstash_inputs_arg.azure.resources }}'
+    - name: Logstash input pattern file transfer.
+      copy:
+        src: 'pattern/esguardian-{{ item }}'
+        dest: '/etc/logstash/patterns/esguardian-{{ item }}'
+        owner: 'logstash'
+        group: 'logstash'
+        mode: '0640'
+      loop: '{{ logstash_inputs_arg.azure.resources }}'
+  when:
+    - logstash_inputs_arg.azure.resources is defined
+    - logstash_servers[0] in ansible_default_ipv4.address
   notify: 'Ensure logstash service is enabled.'

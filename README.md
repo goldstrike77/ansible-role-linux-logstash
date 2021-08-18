@@ -163,9 +163,10 @@ logstash_kibana_ngx_domain: 'siem.example.com'
 logstash_kibana_ngx_port_http: '80'
 logstash_kibana_ngx_port_https: '443'
 logstash_inputs_arg:
-  - name: 'syslog-gelf'
-    protocol: 'udp'
-    port: '12201'
+  common:
+    - name: 'syslog-gelf'
+      protocol: 'udp'
+      port: '12201'
 logstash_port_arg:
   exporter: '9198'
   api: '9600'

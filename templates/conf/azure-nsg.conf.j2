@@ -1,9 +1,9 @@
 input {
   azureblob {
     tags => ["azure-nsg"]
-    storage_account_name => "{{ item.sa_name }}"
-    storage_access_key => "{{ item.sa_access_key }}"
-    container => "{{ item.sa_container }}"
+    storage_account_name => "{{ logstash_inputs_arg.azure.sa_name }}"
+    storage_access_key => "{{ logstash_inputs_arg.azure.sa_access_key }}"
+    container => "{{ insights-logs-nsgxx }}"
     codec => "json"
     file_head_bytes => 12
     file_tail_bytes => 2
