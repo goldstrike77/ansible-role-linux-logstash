@@ -54,16 +54,16 @@ logstash_inputs_arg: # Define the global common inputs parameters.
 #    sa_access_key: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=='
 #    endpoint: 'core.chinacloudapi.cn'
 #    resources:
-#      - 'azure-agw-access'
-#      - 'azure-agw-firewall'
-#      - 'azure-firewall-rule'
-#      - 'azure-kube-apiserver'
-#      - 'azure-kube-audit'
-#      - 'azure-kube-audit-admin'
-#      - 'azure-kube-controller-manager'
-#      - 'azure-kube-scheduler'
-#      - 'azure-mysql-audit'
-#      - 'azure-nsg'
+#      - 'azure-agw-access'
+#      - 'azure-agw-firewall'
+#      - 'azure-firewall-rule'
+#      - 'azure-kube-apiserver'
+#      - 'azure-kube-audit'
+#      - 'azure-kube-audit-admin'
+#      - 'azure-kube-controller-manager'
+#      - 'azure-kube-scheduler'
+#      - 'azure-mysql-audit'
+#      - 'azure-nsg'
 
 # Listen port #
 logstash_port_arg:

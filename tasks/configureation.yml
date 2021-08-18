@@ -74,7 +74,7 @@
     - { regexp: '^pipeline.batch.delay', line: 'pipeline.batch.delay: {{ logstash_arg.pipeline_batch_delay }}' }
     - { regexp: '^http.host', line: 'http.host: {{ ansible_default_ipv4.address }}' }
     - { regexp: '^http.port', line: 'http.port: {{ logstash_port_arg.api }}' }
-    - { regexp: '^log.level', line: 'log.level: {{ logstash_port_arg.log_level }}' }
+    - { regexp: '^log.level', line: 'log.level: {{ logstash_arg.log_level | default("info") }}' }
   notify: 'Ensure logstash service is enabled.'
 
 - name: Install Logstash input plugin.

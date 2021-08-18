@@ -10,6 +10,7 @@
         group: 'logstash'
         mode: '0640'
       loop: '{{ logstash_inputs_arg.common }}'
+      notify: 'Ensure logstash service is enabled.'
     - name: Logstash input template file transfer.
       template:
         src: 'template/elastic-{{ item.name }}-template.json.j2'
@@ -21,6 +22,7 @@
       loop: '{{ logstash_inputs_arg.common }}'
       loop_control:
         index_var: index
+      notify: 'Ensure logstash service is enabled.'
     - name: Logstash input pattern file transfer.
       copy:
         src: 'pattern/esguardian-{{ item.name }}'
@@ -29,8 +31,8 @@
         group: 'logstash'
         mode: '0640'
       loop: '{{ logstash_inputs_arg.common }}'
+      notify: 'Ensure logstash service is enabled.'
   when: logstash_inputs_arg.common is defined
-  notify: 'Ensure logstash service is enabled.'
 
 - name: Logstash Azure input operations.
   block:
@@ -43,6 +45,7 @@
         group: 'logstash'
         mode: '0640'
       loop: '{{ logstash_inputs_arg.azure.resources }}'
+      notify: 'Ensure logstash service is enabled.'
     - name: Logstash input template file transfer.
       template:
         src: 'template/elastic-{{ item }}-template.json.j2'
@@ -52,6 +55,9 @@
         group: 'logstash'
         mode: '0640'
       loop: '{{ logstash_inputs_arg.azure.resources }}'
+      loop_control:
+        index_var: index
+      notify: 'Ensure logstash service is enabled.'
     - name: Logstash input pattern file transfer.
       copy:
         src: 'pattern/esguardian-{{ item }}'
@@ -60,7 +66,7 @@
         group: 'logstash'
         mode: '0640'
       loop: '{{ logstash_inputs_arg.azure.resources }}'
+      notify: 'Ensure logstash service is enabled.'
   when:
     - logstash_inputs_arg.azure.resources is defined
     - logstash_servers[0] in ansible_default_ipv4.address
-  notify: 'Ensure logstash service is enabled.'

@@ -10,7 +10,7 @@
     permanent: 'true'
     immediate: 'true'
     state: 'enabled'
-  loop: '{{ logstash_inputs_arg }}'
+  loop: '{{ logstash_inputs_arg.common }}'
   changed_when: false
   failed_when: false
   ignore_errors: true
@@ -26,7 +26,7 @@
     permanent: 'true'
     immediate: 'true'
     state: 'enabled'
-  loop: '{{ logstash_inputs_arg }}'
+  loop: '{{ logstash_inputs_arg.common }}'
   changed_when: false
   failed_when: false
   ignore_errors: true
