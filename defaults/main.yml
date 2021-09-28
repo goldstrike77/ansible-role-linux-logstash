@@ -54,6 +54,7 @@ logstash_inputs_arg: # Define the global common inputs parameters.
 #    sa_access_key: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=='
 #    endpoint: 'core.chinacloudapi.cn'
 #    resources:
+#      - 'azure-activity-logs'
 #      - 'azure-agw-access'
 #      - 'azure-agw-firewall'
 #      - 'azure-firewall-rule'
